@@ -283,11 +283,11 @@
             <div class="form_container">
               <div class="input_wrap">
                 <label for="email">Full Name</label>
-                <input type="text" name="username" class="input" id="email" />
+                <input type="text" name="username" class="input" id="username" required/>
               </div>
               <div class="input_wrap">
                 <label for="email">Email Address</label>
-                <input type="text" name="email" class="input" id="email" />
+                <input type="text" name="email" class="input" id="email" required/>
               </div>
               <div class="input_wrap">
                 <label for="password">Password</label>
@@ -310,8 +310,7 @@
                   type="text"
                   name="car_charge"
                   class="input"
-                  id="user_name"
-                  pattern="\d+(\.\d{2})?"
+                  id="car_charge"
                 />
               </div>
               <div class="input_wrap">
@@ -324,12 +323,11 @@
                 />
               </div>
               <div class="input_wrap">
-                <label for="last_name">Address</label>
+                <label for="last_name">Parking Address</label>
                 <input
                   type="text"
-                  name="address"
+                  name="parking_address"
                   class="input"
-                  id="last_name"
                 />
               </div>
               <div
@@ -342,7 +340,7 @@
                     type="number"
                     name="car_slot"
                     class="input"
-                    id="last_name"
+                    id="no_of_cars"
                   />
                 </div>
                 <div class="input_wrap">
@@ -351,7 +349,7 @@
                     type="number"
                     name="bike_slot"
                     class="input"
-                    id="last_name"
+                    id="no_of_bikes"
                   />
                 </div>
               </div>
@@ -501,7 +499,7 @@
               </div>
               <div class="input_wrap">
                 <label for="image">Address</label>
-                <input type="number" name="address" class="input" />
+                <input type="text" name="address" class="input" />
               </div>
               <div class="input_wrap">
                 <label for="image">Phone</label>
@@ -651,5 +649,46 @@
         }
       });
     </script>
+
+    <!-- validation -->
+    <script>
+      const form = document.getElementById("validationForm");
+
+      form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          const email = document.getElementById("email").value;
+          const phone = document.getElementById("phone").value;
+          const price = document.getElementById("price").value;
+
+          // Regular expressions for validation
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          const phoneRegex = /^\d{10}$/;
+          const priceRegex = /^\d+(\.\d{1,2})?$/;
+
+          // Perform validation
+          const isEmailValid = emailRegex.test(email);
+          const isPhoneValid = phoneRegex.test(phone);
+          const isPriceValid = priceRegex.test(price);
+
+          // Display validation results
+          if (!isEmailValid) {
+              alert("Invalid email address");
+              return;
+          }
+
+          if (!isPhoneValid) {
+              alert("Invalid phone number. Please enter 10 digits.");
+              return;
+          }
+
+          if (!isPriceValid) {
+              alert("Invalid price. Please enter a valid number.");
+              return;
+          }
+
+          // If all fields are valid, you can submit the form or perform further actions here.
+          alert("Form submitted successfully!");
+      });
+  </script>
   </body>
 </html>
