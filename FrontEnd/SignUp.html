@@ -321,7 +321,7 @@
                 <label for="user_name">Car Charge</label>
                 <input
                   type="text"
-                  name="carCharge"
+                  name="car_charge"
                   class="input"
                   id="user_name"
                   pattern="\d+(\.\d{2})?"
@@ -331,7 +331,7 @@
                 <label for="first_name">Bike Charge</label>
                 <input
                   type="text"
-                  name="bikeCharge"
+                  name="bike_charge"
                   class="input"
                   id="first_name"
                 />
@@ -350,7 +350,7 @@
                 <label for="last_name">No. of cars slots</label>
                 <input
                   type="number"
-                  name="carSlot"
+                  name="car_slot"
                   class="input"
                   id="last_name"
                 />
@@ -359,7 +359,7 @@
                 <label for="last_name">No. of bike slots</label>
                 <input
                   type="number"
-                  name="bikeSlot"
+                  name="bike_slot"
                   class="input"
                   id="last_name"
                 />
@@ -368,7 +368,7 @@
               <div class="input_wrap" style="display: flex; align-items: center; gap:20px">
                 <input
                   type="checkbox"
-                  name="fullTime"
+                  name="full_time"
                   class="checkbox"
                   id="fulltime"
                 />
@@ -379,7 +379,7 @@
                 <label for="last_name">Open Time</label>
                 <input
                   type="time"
-                  name="openTime"
+                  name="open_time"
                   class="input"
                   id="last_name"
                 />
@@ -388,12 +388,35 @@
                 <label for="last_name">Close Time</label>
                 <input
                   type="time"
-                  name="closeTime"
+                  name="close_time"
                   class="input"
                   id="last_name"
                 />
               </div>
               </div>
+              <div class="input_wrap">
+                <select name="parking_type" id="select" style="
+                padding: 10px;
+                width: 350px;
+                border-radius: 2px;
+                border: 2px solid #bfc0c0;
+                ">
+                    <option value="null" selected>Parking Type</option>
+                    <option value="organization">Organization</option>
+                    <option value="individual">Individual</option>
+                </select>
+                
+              </div>
+              <div class="input_wrap" style="display: flex; align-items: center; gap:20px">
+                <input
+                  type="checkbox"
+                  name="status"
+                  class="checkbox"
+                  id="fulltime"
+                />
+                <label for="fulltime">Status</label>
+              </div>
+              
               
               <div class="flex-wrapper" id="open-close-time" style="display: flex; width: 350px; margin: auto; gap: 20px;">
                 <div class="input_wrap">
@@ -414,6 +437,7 @@
                   id="last_name"
                 />
               </div>
+
               </div>
               <div class="input_wrap">
                 <label for="image">Image of Parking Space</label>
