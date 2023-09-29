@@ -579,3 +579,12 @@ img{
   height: 100px;
   font-family: "Poppins", sans-serif;
 }
+
+input{
+  font-family: 'Poppins', sans-serif;
+  width: 250px;
+  padding: 0.7rem;
+  border-radius: 7px;
+  border: 1px solid grey;
+  /* border-collapse: collapse; */
+}

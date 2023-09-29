@@ -8,7 +8,7 @@
         <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
 
         <!--========== CSS ==========-->
-        <link rel="stylesheet" href="{% static 'Customer/css/styles.css'%}">
+        <link rel="stylesheet" href="assets/css/styles.css">
 
         <title>Open Park - Cloud Sharing </title>
         <style>
@@ -53,17 +53,11 @@
             <section class="menu section bd-container" id="menu">
                 <h2 class="section-title">Choose Your Preferred Location:</h2>
 
-                <section class="about section bd-container" id="about">
-                    <div class="about__container  bd-grid">
-                        <input type="text" id="location" name="location"><br><br>
-                        <div class="about__data" style="align-items: center;">
+                <section class="about section bd-container" id="about" style="padding: 0px; align-items: center; text-align: center;">
+                        <input type="text" id="location" name="location" placeholder="Enter your preferred location">
                             <a href="#" class="button">Search</a>
-                        </div>
-                    </div>
                 </section>
-                <div class="menu__container bd-grid">
-                 
-                </div>
+               
             </section>
 
         </main>
@@ -119,6 +113,6 @@
         <script src="https://unpkg.com/scrollreveal"></script>
 
         <!--========== MAIN JS ==========-->
-        <script src="{% static 'Customer/js/main.js'%}"></script>
+        <script src="assets/js/main.js"></script>
     </body>
 </html>
