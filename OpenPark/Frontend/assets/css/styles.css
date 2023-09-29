@@ -285,6 +285,15 @@ img{
   background-color: var(--first-color-alt);
 }
 
+.input{
+  display: inline-block;
+  background-color: var(--first-color);
+  color: #FFF;
+  padding: .75rem 1rem;
+  border-radius: .5rem;
+  transition: .3s;
+}
+
 /*========== ABOUT ==========*/
 .about__data{
   text-align: center;
@@ -365,6 +374,10 @@ img{
 
 .menu__detail{
   margin-bottom: var(--mb-1);
+  color: #1D2521;
+}
+.a{
+  text-decoration: none;
 }
 
 .menu__button{
