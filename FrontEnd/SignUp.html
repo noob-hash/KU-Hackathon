@@ -322,6 +322,7 @@
                   name="carCharge"
                   class="input"
                   id="user_name"
+                  pattern="[0-9]"
                 />
               </div>
               <div class="input_wrap">
@@ -362,6 +363,15 @@
                 />
               </div>
               </div>
+              <div class="input_wrap" style="display: flex; align-items: center; gap:20px">
+                <input
+                  type="checkbox"
+                  name="fullTime"
+                  class="checkbox"
+                  id="fulltime"
+                />
+                <label for="fulltime">Full Time</label>
+              </div>
               <div class="flex-wrapper" id="open-close-time" style="display: flex; width: 350px; margin: auto; gap: 20px;">
                 <div class="input_wrap">
                 <label for="last_name">Open Time</label>
@@ -382,15 +392,7 @@
                 />
               </div>
               </div>
-              <div class="input_wrap" style="display: flex; align-items: center; gap:20px">
-                <input
-                  type="checkbox"
-                  name="fullTime"
-                  class="checkbox"
-                  id="fulltime"
-                />
-                <label for="fulltime">Ful Time</label>
-              </div>
+              
               <div class="flex-wrapper" id="open-close-time" style="display: flex; width: 350px; margin: auto; gap: 20px;">
                 <div class="input_wrap">
                 <label for="last_name">Longitude</label>
@@ -589,5 +591,21 @@
         modal_wrapper.classList.remove("active");
       });
     </script>
+
+
+
+<script>
+  let checkbox = document.getElementById("fulltime");
+  let openCloseTime = document.getElementById("open-close-time");
+  checkbox.addEventListener( "change", () => {
+     if ( checkbox.checked ) {
+        console.log("checked");
+        openCloseTime.style.display = "none";
+     } else {
+        console.log("Not checked");
+        openCloseTime.style.display = "flex";
+     }
+  });
+</script>
   </body>
 </html>
