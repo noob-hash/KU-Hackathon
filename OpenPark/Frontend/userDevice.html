@@ -8,7 +8,7 @@
         <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
 
         <!--========== CSS ==========-->
-        <link rel="stylesheet" href="assets/css/styles.css">
+        <link rel="stylesheet" href="{% static 'Customer/css/styles.css'%}">
 
         <title>Open Park - Cloud Sharing </title>
         <style>
@@ -56,7 +56,7 @@
                 <div class="menu__container bd-grid">
                     <a href="userLocation.html">
                     <div class="menu__content">
-                        <img src="assets/img/bike.png" alt="" class="menu__img">
+                        <img src="{% static 'Customer/img/bike.png'%}" alt="" class="menu__img">
                         <h3 class="menu__name">Two wheel Parking</h3>
                         <span class="menu__detail">Bike and Scooter</span>
                         <span class="menu__preci">NRs. 25</span>
@@ -65,7 +65,7 @@
                 </a>
                     <a href="userLocation.html">
                     <div class="menu__content">
-                        <img src="assets/img/home.png" alt="" class="menu__img">
+                        <img src="{% static 'Customer/img/home.png'%}" alt="" class="menu__img">
                         <h3 class="menu__name">Four wheel Parking</h3>
                         <span class="menu__detail">Car and Jeep</span>
                         <span class="menu__preci">NRs. 100</span>
@@ -73,7 +73,7 @@
                     </div>
                 </a>
                     <!-- <div class="menu__content">
-                        <img src="assets/img/plate3.png" alt="" class="menu__img">
+                        <img src="{% static 'Customer/img/plate3.png'%}" alt="" class="menu__img">
                         <h3 class="menu__name">One</h3>
                         <span class="menu__detail">Delicious dish</span>
                         <span class="menu__preci">$9.50</span>
@@ -135,6 +135,6 @@
         <script src="https://unpkg.com/scrollreveal"></script>
 
         <!--========== MAIN JS ==========-->
-        <script src="assets/js/main.js"></script>
+        <script src="{% static 'Customer/js/main.js'%}"></script>
     </body>
 </html>
