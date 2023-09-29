@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign in & Sign up Form</title>
-    <link rel="stylesheet" href="assets/css/form.css" />
+    <link rel="stylesheet" href="{% static 'Customer/css/form.css'%}" />
   </head>
   <body>
     <main>
@@ -114,9 +114,9 @@
 
           <div class="carousel">
             <div class="images-wrapper">
-              <img src="assets/img/car1.png" class="image img-1 show" alt="" />
-              <img src="assets/img/car2.png" class="image img-2" alt="" />
-              <img src="assets/img/car3.png" class="image img-3" alt="" />
+              <img src="{% static 'Customer/img/car1.png'%}" class="image img-1 show" alt="" />
+              <img src="{% static 'Customer/img/car2.png'%}" class="image img-2" alt="" />
+              <img src="{% static 'Customer/img/car3.png'%}" class="image img-3" alt="" />
             </div>
 
             <div class="text-slider">
@@ -141,6 +141,6 @@
 
     <!-- Javascript file -->
 
-    <script src="assets/js/form.js"></script>
+    <script src="{% static 'Customer/js/form.js'%}"></script>
   </body>
 </html>
