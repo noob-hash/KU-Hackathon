@@ -284,6 +284,18 @@ img{
 .button:hover{
   background-color: var(--first-color-alt);
 }
+.button-login{
+  display: inline-block;
+  background-color: var(--first-color);
+  color: #FFF;
+  padding: 5px;
+  border-radius: .5rem;
+  transition: .3s;
+}
+
+.button-login:hover{
+  background-color: var(--first-color-alt);
+}
 
 /*========== ABOUT ==========*/
 .about__data{

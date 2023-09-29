@@ -78,10 +78,7 @@ def owner_dashboard(request):
             dates.append(current_day.strftime('%Y-%m-%d'))
             daily_total_amounts.append(daily_revenue)
             current_day += timedelta(days=1)
-
-        print(dates,)
-        print(daily_total_amounts)
-        return render(request, 'Parking/Owner.html', {
+        return render(request, 'Owner.html', {
             'dates': dates,
             'daily_total_amounts': daily_total_amounts,
             'total_cars': total_cars,
@@ -90,6 +87,14 @@ def owner_dashboard(request):
         })
     else:
         return redirect('login')
+
+def customer_dashboard(request):
+    if request.user:
+        # Get the parking codes owned by the logged-in staff member
+        return render(request, 'Customer.html')
+    else:
+        return redirect('login')
+
 
 def my_car_bookings(request):
     if request.user.is_authenticated and request.user.is_staff:

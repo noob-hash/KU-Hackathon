@@ -22,34 +22,12 @@ def login(request):
 
         # Authenticate user
         user = authenticate(request, username=username, password=password)
-        print(user)
         if user is not None:
             auth_login(request, user)
-
-            try:
-                # Check if the user has a related Parking entry
-                if user.is_staff:
-                    parking = Parking.objects.get(owner=user)
-                    kyc = KYC.objects.get(parking_code=parking.code)
-
-                    if not parking.code or not kyc:
-                        # If either parking or KYC is incomplete, redirect to the respective registration page
-                        message = "Complete the required forms"
-                        if not parking.code:
-                            return redirect('register_parking')
-                        else:
-                            return redirect('register_kyc')
-                else:
-                    return redirect('choose_location')
-
-            except Parking.DoesNotExist:
-                # If the user doesn't have a related Parking entry, redirect to register parking
-                message = "Complete form"
-                return redirect('register_parking')
-
-            # If all conditions are met, redirect to owner_dashboard
-            message = "Success"
-            return redirect('owner_dashboard')
+            if user.is_staff:
+                return redirect('dashboard')
+            else:
+                return redirect('customer_dashboard')
 
         else:
             # Return an error response or render the login page with an error message
@@ -66,15 +44,14 @@ def customer_registration(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
-        first_name = request.POST['first_name']
+        email = request.POST['email']
 
         # Check if the username is already taken
         if User.objects.filter(username=username).exists():
             error_message = "Username already taken."
         else:
             # Create a new user
-            user = User.objects.create_user(username=username, password=password)
-            user.first_name = first_name
+            user = User.objects.create_user(username=username,email=email, password=password)
             user.save()
 
             # Authenticate and log in the user
