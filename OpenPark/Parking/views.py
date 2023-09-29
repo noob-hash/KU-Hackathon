@@ -81,7 +81,7 @@ def owner_dashboard(request):
 
         print(dates,)
         print(daily_total_amounts)
-        return render(request, 'open_park/Owner.html', {
+        return render(request, 'Parking/Owner.html', {
             'dates': dates,
             'daily_total_amounts': daily_total_amounts,
             'total_cars': total_cars,
