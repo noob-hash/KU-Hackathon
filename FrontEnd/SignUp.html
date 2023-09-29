@@ -276,18 +276,30 @@
         </ul>
       </div>
       <div class="form_wrap">
-
-        <form action="" method="POST">
-<div class="form_1 data_info">
-          <h2>Personal Info</h2>
+        <form action="" method="POST" id="formSubmit">
+          {% csrf_token %}
+          <div class="form_1 data_info">
+            <h2>Personal Info</h2>
             <div class="form_container">
               <div class="input_wrap">
                 <label for="email">Full Name</label>
-                <input type="text" name="username" class="input" id="username" required/>
+                <input
+                  type="text"
+                  name="username"
+                  class="input"
+                  id="username"
+                  required
+                />
               </div>
               <div class="input_wrap">
                 <label for="email">Email Address</label>
-                <input type="text" name="email" class="input" id="email" required/>
+                <input
+                  type="text"
+                  name="email"
+                  class="input"
+                  id="email"
+                  required
+                />
               </div>
               <div class="input_wrap">
                 <label for="password">Password</label>
@@ -299,10 +311,10 @@
                 />
               </div>
             </div>
-        </div>
+          </div>
 
-        <div class="form_2 data_info" style="display: none">
-          <h2>Parking Info</h2>
+          <div class="form_2 data_info" style="display: none">
+            <h2>Parking Info</h2>
             <div class="form_container">
               <div class="input_wrap">
                 <label for="user_name">Car Charge</label>
@@ -324,11 +336,7 @@
               </div>
               <div class="input_wrap">
                 <label for="last_name">Parking Address</label>
-                <input
-                  type="text"
-                  name="parking_address"
-                  class="input"
-                />
+                <input type="text" name="parking_address" class="input" />
               </div>
               <div
                 class="flex-wrapper"
@@ -453,10 +461,10 @@
                 />
               </div>
             </div>
-        </div>
+          </div>
 
-        <div class="form_3 data_info" style="display: none">
-          <h2>KYC Info</h2>
+          <div class="form_3 data_info" style="display: none">
+            <h2>KYC Info</h2>
             <div class="form_container">
               <div class="input_wrap">
                 <label for="Citizenship_id">Document No.</label>
@@ -495,13 +503,20 @@
               </div>
               <div class="input_wrap">
                 <label for="image">Phone</label>
-                <input type="number" name="phone" class="input" />
+                <input
+                  type="number"
+                  inputmode="numeric"
+                  pattern="[0-9]{10}"
+                  name="phone"
+                  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                  class="input"
+                  maxlength="10"
+                />
               </div>
               <div class="input_wrap">
                 <label for="image">Address</label>
                 <input type="text" name="address" class="input" />
               </div>
-         
               <div class="input_wrap">
                 <label for="image">Profile</label>
                 <input
@@ -513,10 +528,8 @@
                 />
               </div>
             </div>
-        </div>
+          </div>
         </form>
-
-        
       </div>
       <div class="btns_wrap">
         <div class="common_btns form_1_btns">
@@ -546,10 +559,9 @@
               ><ion-icon name="arrow-back-sharp"></ion-icon></span
             >Back
           </button>
-          <button type="Submit" class="btn_done">Done</button>
+          <button type="button" class="btn_done">Done</button>
         </div>
       </div>
-
     </div>
 
     <div class="modal_wrapper">
@@ -593,7 +605,6 @@
         form_2_progessbar.classList.add("active");
       });
 
-      // cliced on previous buttn
       form_2_back_btn.addEventListener("click", function () {
         form_1.style.display = "block";
         form_2.style.display = "none";
@@ -623,14 +634,18 @@
 
         form_3_progessbar.classList.remove("active");
       });
-
+      var formFinal = document.getElementById("formSubmit");
+      btn_done.addEventListener("click", function () {
+        formFinal.submit();
+        modal_wrapper.classList.add("active");
+      });
 
       shadow.addEventListener("click", function () {
         modal_wrapper.classList.remove("active");
       });
     </script>
 
-<!-- checkbpx -->
+    <!-- checkbpx -->
     <script>
       let checkbox = document.getElementById("fulltime");
       let openCloseTime = document.getElementById("open-close-time");
@@ -650,40 +665,40 @@
       const form = document.getElementById("validationForm");
 
       form.addEventListener("submit", function (e) {
-          e.preventDefault();
-          const email = document.getElementById("email").value;
-          const phone = document.getElementById("phone").value;
-          const price = document.getElementById("price").value;
+        e.preventDefault();
+        const email = document.getElementById("email").value;
+        const phone = document.getElementById("phone").value;
+        const price = document.getElementById("price").value;
 
-          // Regular expressions for validation
-          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          const phoneRegex = /^\d{10}$/;
-          const priceRegex = /^\d+(\.\d{1,2})?$/;
+        // Regular expressions for validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const phoneRegex = /^\d{10}$/;
+        const priceRegex = /^\d+(\.\d{1,2})?$/;
 
-          // Perform validation
-          const isEmailValid = emailRegex.test(email);
-          const isPhoneValid = phoneRegex.test(phone);
-          const isPriceValid = priceRegex.test(price);
+        // Perform validation
+        const isEmailValid = emailRegex.test(email);
+        const isPhoneValid = phoneRegex.test(phone);
+        const isPriceValid = priceRegex.test(price);
 
-          // Display validation results
-          if (!isEmailValid) {
-              alert("Invalid email address");
-              return;
-          }
+        // Display validation results
+        if (!isEmailValid) {
+          alert("Invalid email address");
+          return;
+        }
 
-          if (!isPhoneValid) {
-              alert("Invalid phone number. Please enter 10 digits.");
-              return;
-          }
+        if (!isPhoneValid) {
+          alert("Invalid phone number. Please enter 10 digits.");
+          return;
+        }
 
-          if (!isPriceValid) {
-              alert("Invalid price. Please enter a valid number.");
-              return;
-          }
+        if (!isPriceValid) {
+          alert("Invalid price. Please enter a valid number.");
+          return;
+        }
 
-          // If all fields are valid, you can submit the form or perform further actions here.
-          alert("Form submitted successfully!");
+        // If all fields are valid, you can submit the form or perform further actions here.
+        alert("Form submitted successfully!");
       });
-  </script>
+    </script>
   </body>
 </html>
