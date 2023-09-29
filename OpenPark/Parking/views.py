@@ -91,3 +91,53 @@ def owner_dashboard(request):
     else:
         return redirect('login')
 
+def my_car_bookings(request):
+    if request.user.is_authenticated and request.user.is_staff:
+        # Get all parking codes owned by the logged-in staff member
+        owner_parking_codes = Parking.objects.filter(
+            owner=request.user).values_list('code', flat=True)
+        print(owner_parking_codes)
+
+        # Find all tickets that match the parking_code in the owner's parking codes
+        parking_tickets = Ticket.objects.filter(
+            parking_code__in=owner_parking_codes, vehicle_type='Car')
+        print(parking_tickets)
+    else:
+        return redirect('login')
+
+    return render(request, 'Parking/car.html', {'parking_tickets': parking_tickets})
+
+
+# Bike Bookings
+def my_bike_bookings(request):
+    if request.user.is_authenticated and request.user.is_staff:
+        # Get all parking codes owned by the logged-in staff member
+        owner_parking_codes = Parking.objects.filter(
+            owner=request.user).values_list('code', flat=True)
+        print(owner_parking_codes)
+
+        # Find all tickets that match the parking_code in the owner's parking codes
+        parking_tickets = Ticket.objects.filter(
+            parking_code__in=owner_parking_codes, vehicle_type='Bike')
+        print(parking_tickets)
+    else:
+        return redirect('login')
+
+    return render(request, 'Parking/bike.html', {'parking_tickets': parking_tickets})
+
+
+# Active Bookings
+def my_active_bookings(request):
+    if request.user.is_authenticated and request.user.is_staff:
+        # Get all parking codes owned by the logged-in staff member
+        owner_parking_codes = Parking.objects.filter(
+            owner=request.user).values_list('code', flat=True)
+            
+        # Find all tickets that match the parking_code in the owner's parking codes
+        parking_tickets = Ticket.objects.filter(
+            parking_code__in=owner_parking_codes, status='Booked')
+        print(parking_tickets)
+    else:
+        return redirect('login')
+
+    return render(request, 'Parking/booking.html', {'parking_tickets': parking_tickets})

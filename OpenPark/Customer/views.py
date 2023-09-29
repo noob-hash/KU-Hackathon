@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from django.contrib.auth import authenticate, login as auth_login 
+from django.contrib.auth import authenticate,logout, login as auth_login 
 from Parking.models import Parking, KYC
 from django.contrib import messages
 import uuid
@@ -10,6 +10,10 @@ from django.contrib.auth.models import User
 def user_index(request):
     return render(request, 'index.html')
 
+def logout_user(request):
+    logout(request)
+    return render(request, 'index.html')
+
 def login(request):
     message = None
     if request.method == 'POST':
@@ -18,7 +22,7 @@ def login(request):
 
         # Authenticate user
         user = authenticate(request, username=username, password=password)
-
+        print(user)
         if user is not None:
             auth_login(request, user)
 
@@ -56,7 +60,7 @@ def login(request):
     }
     
     # Handle GET request (display the login form)
-    return render(request, 'Customer/login.html', context)
+    return render(request, 'Login.html', context)
 
 def customer_registration(request):
     if request.method == 'POST':
@@ -122,17 +126,17 @@ def register_owner_account(request):
 
             code = str(uuid.uuid4().hex[:8])  
             owner = request.user 
-            car_slot = int(request.POST.get('car_slot', 0))
-            bike_slot = int(request.POST.get('bike_slot', 0))
-            car_charge = int(request.POST.get('car_charge', 0))
-            bike_charge = int(request.POST.get('bike_charge', 0))
+            car_slot = int(request.POST.get('car_slot', 10))
+            bike_slot = int(request.POST.get('bike_slot', 10))
+            car_charge = int(request.POST.get('car_charge', 100))
+            bike_charge = int(request.POST.get('bike_charge', 25))
             opening_time = request.POST.get('opening_time')
             close_time = request.POST.get('close_time')
             full_time = bool(request.POST.get('full_time', False))
             parking_type = request.POST.get('parking_type')
             latitude = float(request.POST.get('latitude', 0))
             longitude = float(request.POST.get('longitude', 0))
-            image = request.FILES.get('image')
+            image = request.FILES.get('image1')
             status = bool(request.POST.get('status', False))
 
             # Create a new Parking object and save it
@@ -157,7 +161,7 @@ def register_owner_account(request):
             parking_code = Parking.objects.filter(
             owner=request.user).values_list('code', flat=True)
             citizenship_id = request.POST.get('citizenship_id')
-            name = username
+            name = request.user
             image = request.FILES.get('image')
             phone = request.POST.get('phone')
             document_type = request.POST.get('document_type')
