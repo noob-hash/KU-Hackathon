@@ -276,27 +276,18 @@
         </ul>
       </div>
       <div class="form_wrap">
-        <div class="form_1 data_info">
+
+        <form action="" method="POST">
+<div class="form_1 data_info">
           <h2>Personal Info</h2>
-          <form>
             <div class="form_container">
               <div class="input_wrap">
                 <label for="email">Full Name</label>
-                <input
-                  type="text"
-                  name="username"
-                  class="input"
-                  id="email"
-                />
+                <input type="text" name="username" class="input" id="email" />
               </div>
               <div class="input_wrap">
                 <label for="email">Email Address</label>
-                <input
-                  type="text"
-                  name="email"
-                  class="input"
-                  id="email"
-                />
+                <input type="text" name="email" class="input" id="email" />
               </div>
               <div class="input_wrap">
                 <label for="password">Password</label>
@@ -307,15 +298,11 @@
                   id="password"
                 />
               </div>
-           
             </div>
-          </form>
         </div>
-
 
         <div class="form_2 data_info" style="display: none">
           <h2>Parking Info</h2>
-          <form>
             <div class="form_container">
               <div class="input_wrap">
                 <label for="user_name">Car Charge</label>
@@ -345,27 +332,33 @@
                   id="last_name"
                 />
               </div>
-              <div class="flex-wrapper" style="display: flex; width: 350px; margin: auto; gap: 20px;">
+              <div
+                class="flex-wrapper"
+                style="display: flex; width: 350px; margin: auto; gap: 20px"
+              >
                 <div class="input_wrap">
-                <label for="last_name">No. of cars slots</label>
-                <input
-                  type="number"
-                  name="car_slot"
-                  class="input"
-                  id="last_name"
-                />
+                  <label for="last_name">No. of cars slots</label>
+                  <input
+                    type="number"
+                    name="car_slot"
+                    class="input"
+                    id="last_name"
+                  />
+                </div>
+                <div class="input_wrap">
+                  <label for="last_name">No. of bike slots</label>
+                  <input
+                    type="number"
+                    name="bike_slot"
+                    class="input"
+                    id="last_name"
+                  />
+                </div>
               </div>
-              <div class="input_wrap">
-                <label for="last_name">No. of bike slots</label>
-                <input
-                  type="number"
-                  name="bike_slot"
-                  class="input"
-                  id="last_name"
-                />
-              </div>
-              </div>
-              <div class="input_wrap" style="display: flex; align-items: center; gap:20px">
+              <div
+                class="input_wrap"
+                style="display: flex; align-items: center; gap: 20px"
+              >
                 <input
                   type="checkbox"
                   name="full_time"
@@ -374,40 +367,50 @@
                 />
                 <label for="fulltime">Full Time</label>
               </div>
-              <div class="flex-wrapper" id="open-close-time" style="display: flex; width: 350px; margin: auto; gap: 20px;">
+              <div
+                class="flex-wrapper"
+                id="open-close-time"
+                style="display: flex; width: 350px; margin: auto; gap: 20px"
+              >
                 <div class="input_wrap">
-                <label for="last_name">Open Time</label>
-                <input
-                  type="time"
-                  name="open_time"
-                  class="input"
-                  id="last_name"
-                />
+                  <label for="last_name">Open Time</label>
+                  <input
+                    type="time"
+                    name="open_time"
+                    class="input"
+                    id="last_name"
+                  />
+                </div>
+                <div class="input_wrap">
+                  <label for="last_name">Close Time</label>
+                  <input
+                    type="time"
+                    name="close_time"
+                    class="input"
+                    id="last_name"
+                  />
+                </div>
               </div>
               <div class="input_wrap">
-                <label for="last_name">Close Time</label>
-                <input
-                  type="time"
-                  name="close_time"
-                  class="input"
-                  id="last_name"
-                />
-              </div>
-              </div>
-              <div class="input_wrap">
-                <select name="parking_type" id="select" style="
-                padding: 10px;
-                width: 350px;
-                border-radius: 2px;
-                border: 2px solid #bfc0c0;
-                ">
-                    <option value="null" selected>Parking Type</option>
-                    <option value="organization">Organization</option>
-                    <option value="individual">Individual</option>
+                <select
+                  name="parking_type"
+                  id="select"
+                  style="
+                    padding: 10px;
+                    width: 350px;
+                    border-radius: 2px;
+                    border: 2px solid #bfc0c0;
+                  "
+                >
+                  <option value="null" selected>Parking Type</option>
+                  <option value="organization">Organization</option>
+                  <option value="individual">Individual</option>
                 </select>
-                
               </div>
-              <div class="input_wrap" style="display: flex; align-items: center; gap:20px">
+              <div
+                class="input_wrap"
+                style="display: flex; align-items: center; gap: 20px"
+              >
                 <input
                   type="checkbox"
                   name="status"
@@ -416,28 +419,30 @@
                 />
                 <label for="fulltime">Status</label>
               </div>
-              
-              
-              <div class="flex-wrapper" id="open-close-time" style="display: flex; width: 350px; margin: auto; gap: 20px;">
-                <div class="input_wrap">
-                <label for="last_name">Longitude</label>
-                <input
-                  type="time"
-                  name="longitude"
-                  class="input"
-                  id="last_name"
-                />
-              </div>
-              <div class="input_wrap">
-                <label for="latitude">Latitude</label>
-                <input
-                  type="time"
-                  name="latitude"
-                  class="input"
-                  id="last_name"
-                />
-              </div>
 
+              <div
+                class="flex-wrapper"
+                id="open-close-time"
+                style="display: flex; width: 350px; margin: auto; gap: 20px"
+              >
+                <div class="input_wrap">
+                  <label for="last_name">Longitude</label>
+                  <input
+                    type="time"
+                    name="longitude"
+                    class="input"
+                    id="last_name"
+                  />
+                </div>
+                <div class="input_wrap">
+                  <label for="latitude">Latitude</label>
+                  <input
+                    type="time"
+                    name="latitude"
+                    class="input"
+                    id="last_name"
+                  />
+                </div>
               </div>
               <div class="input_wrap">
                 <label for="image">Image of Parking Space</label>
@@ -450,36 +455,35 @@
                 />
               </div>
             </div>
-          </form>
         </div>
-
-
 
         <div class="form_3 data_info" style="display: none">
           <h2>KYC Info</h2>
-          <form>
             <div class="form_container">
-                <div class="input_wrap">
-                    <label for="Citizenship_id">Document No.</label>
-                    <input
-                      type="text"
-                      name="Citizenship_id"
-                      class="input"
-                      id="last_name"
-                    />
-                  </div>
               <div class="input_wrap">
-                <select name="document_type" id="select" style="
-                padding: 10px;
-                width: 350px;
-                border-radius: 2px;
-                border: 2px solid #bfc0c0;
-                ">
-                    <option value="null" selected>Choose a document</option>
-                    <option value="C">Citizenship</option>
-                    <option value="P">Passport</option>
+                <label for="Citizenship_id">Document No.</label>
+                <input
+                  type="text"
+                  name="Citizenship_id"
+                  class="input"
+                  id="last_name"
+                />
+              </div>
+              <div class="input_wrap">
+                <select
+                  name="document_type"
+                  id="select"
+                  style="
+                    padding: 10px;
+                    width: 350px;
+                    border-radius: 2px;
+                    border: 2px solid #bfc0c0;
+                  "
+                >
+                  <option value="null" selected>Choose a document</option>
+                  <option value="C">Citizenship</option>
+                  <option value="P">Passport</option>
                 </select>
-                
               </div>
               <div class="input_wrap">
                 <label for="image">Document Image</label>
@@ -493,27 +497,15 @@
               </div>
               <div class="input_wrap">
                 <label for="image">Phone</label>
-                <input
-                  type="number"
-                  name="phone"
-                  class="input"
-                />
+                <input type="number" name="phone" class="input" />
               </div>
               <div class="input_wrap">
                 <label for="image">Address</label>
-                <input
-                  type="number"
-                  name="address"
-                  class="input"
-                />
+                <input type="number" name="address" class="input" />
               </div>
               <div class="input_wrap">
                 <label for="image">Phone</label>
-                <input
-                  type="number"
-                  name="phone"
-                  class="input"
-                />
+                <input type="number" name="phone" class="input" />
               </div>
               <div class="input_wrap">
                 <label for="image">Profile</label>
@@ -526,8 +518,10 @@
                 />
               </div>
             </div>
-          </form>
         </div>
+        </form>
+
+        
       </div>
       <div class="btns_wrap">
         <div class="common_btns form_1_btns">
@@ -560,6 +554,7 @@
           <button type="button" class="btn_done">Done</button>
         </div>
       </div>
+
     </div>
 
     <div class="modal_wrapper">
@@ -642,20 +637,19 @@
       });
     </script>
 
-
-
-<script>
-  let checkbox = document.getElementById("fulltime");
-  let openCloseTime = document.getElementById("open-close-time");
-  checkbox.addEventListener( "change", () => {
-     if ( checkbox.checked ) {
-        console.log("checked");
-        openCloseTime.style.display = "none";
-     } else {
-        console.log("Not checked");
-        openCloseTime.style.display = "flex";
-     }
-  });
-</script>
+<!-- checkbpx -->
+    <script>
+      let checkbox = document.getElementById("fulltime");
+      let openCloseTime = document.getElementById("open-close-time");
+      checkbox.addEventListener("change", () => {
+        if (checkbox.checked) {
+          console.log("checked");
+          openCloseTime.style.display = "none";
+        } else {
+          console.log("Not checked");
+          openCloseTime.style.display = "flex";
+        }
+      });
+    </script>
   </body>
 </html>
