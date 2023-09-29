@@ -503,16 +503,10 @@
               </div>
               <div class="input_wrap">
                 <label for="image">Phone</label>
-                <input
-                  type="number"
-                  inputmode="numeric"
-                  pattern="[0-9]{10}"
-                  name="phone"
-                  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                  class="input"
-                  maxlength="10"
-                />
-              </div>
+                <input type="text" inputmode="numeric" pattern="[0-9]{10}" name="phone" class="input" 
+                       oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);" />
+            </div>
+            
               <div class="input_wrap">
                 <label for="image">Address</label>
                 <input type="text" name="address" class="input" />
