@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Progressive Form | Multi Steps Form</title>
+    <title>OpenPark | Signup</title>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap");
 
@@ -382,48 +382,95 @@
                 />
               </div>
               </div>
-              <div class="input_wrap">
-                <label for="fulltime">Full Time</label>
+              <div class="input_wrap" style="display: flex; align-items: center; gap:20px">
                 <input
                   type="checkbox"
                   name="fullTime"
-                  class="input"
+                  class="checkbox"
                   id="fulltime"
                 />
+                <label for="fulltime">Ful Time</label>
               </div>
-              
+              <div class="flex-wrapper" id="open-close-time" style="display: flex; width: 350px; margin: auto; gap: 20px;">
+                <div class="input_wrap">
+                <label for="last_name">Longitude</label>
+                <input
+                  type="time"
+                  name="longitude"
+                  class="input"
+                  id="last_name"
+                />
+              </div>
+              <div class="input_wrap">
+                <label for="latitude">Latitude</label>
+                <input
+                  type="time"
+                  name="latitude"
+                  class="input"
+                  id="last_name"
+                />
+              </div>
+              </div>
+              <div class="input_wrap">
+                <label for="image">Image of Parking Space</label>
+                <input
+                  type="file"
+                  name="image"
+                  class="input"
+                  id="last_name"
+                  accept="image/*"
+                />
+              </div>
             </div>
           </form>
         </div>
+
+
+
         <div class="form_3 data_info" style="display: none">
-          <h2>Professional Info</h2>
+          <h2>KYC Info</h2>
           <form>
             <div class="form_container">
+                <div class="input_wrap">
+                    <label for="docuemntNo.">Document No.</label>
+                    <input
+                      type="text"
+                      name="documentNo"
+                      class="input"
+                      id="last_name"
+                    />
+                  </div>
               <div class="input_wrap">
-                <label for="company">Current Company</label>
+                <select name="documentNo" id="select" style="
+                padding: 10px;
+                width: 350px;
+                border-radius: 2px;
+                border: 2px solid #bfc0c0;
+                ">
+                    <option value="null" selected>Choose a document</option>
+                    <option value="C">Citizenship</option>
+                    <option value="P">Passport</option>
+                </select>
+                
+              </div>
+              <div class="input_wrap">
+                <label for="image">Document Image</label>
                 <input
-                  type="text"
-                  name="Current Company"
+                  type="file"
+                  name="docImage"
                   class="input"
-                  id="company"
+                  id="last_name"
+                  accept="image/*"
                 />
               </div>
               <div class="input_wrap">
-                <label for="experience">Total Experience</label>
+                <label for="image">Profile</label>
                 <input
-                  type="text"
-                  name="Total Experience"
+                  type="file"
+                  name="profileImage"
                   class="input"
-                  id="experience"
-                />
-              </div>
-              <div class="input_wrap">
-                <label for="designation">Designation</label>
-                <input
-                  type="text"
-                  name="Designation"
-                  class="input"
-                  id="designation"
+                  id="last_name"
+                  accept="image/*"
                 />
               </div>
             </div>
