@@ -18,7 +18,7 @@ def my_bookings(request):
     else:
         return redirect('login')
 
-    return render(request, 'open_park/Owner.html', {'parking_tickets': parking_tickets})
+    return render(request, 'Parking/Owner.html', {'parking_tickets': parking_tickets})
 
 def owner_dashboard(request):
     if request.user.is_staff:
