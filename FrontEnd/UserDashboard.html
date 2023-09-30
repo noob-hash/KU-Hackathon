@@ -47,13 +47,15 @@
 
       /* Styling for the sliding panel */
       .panel {
+        border: 1px solid #eee;
+        border-radius: 8px;
         flex: 2;
         top: 0;
         right: 0; /* Fixed to the right in desktop view */
         /* width: 400px; Width of the panel in desktop view */
         background-color: #fff;
         overflow-y: auto;
-        box-shadow: -1px 0px 10px rgba(0, 0, 0, 0.5);
+        /* box-shadow: -1px 0px 10px rgba(0, 0, 0, 0.5); */
       }
 
       .panel-header {
@@ -218,18 +220,25 @@
               
 
               <div class="flex">
-                <input
+                <div class="input-wrapper">
+                  <label for="loaction">Arrival time</label>
+                  <input
                   type="time"
                   id="searchInput"
                   name="location"
                   placeholder="Enter Arrival time"
                 />
-                <input
+                  </div>
+                  <div class="input-wrapper">
+                    <label for="loaction">Departure time</label>
+                    <input
                   type="time"
                   id="searchInput"
                   name="location"
                   placeholder="Enter Departure time"
                 />
+                    </div>
+                
               </div>
 
               <div class="input-wrapper">
