@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Map Parking Location</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <style>
+      /* Updated map size and border styling */
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+       min-height: 100vh;
+        font-family: "Poppins", sans-serif;
+      }
+
+      .container {
+        padding: 20px;
+        display: flex;
+        gap: 20px;
+      }
+
+      #map {
+        flex: 4;
+        height: 90vh; /* Adjust the height as desired */
+        border: 2px solid #ccc;
+        border-radius: 5px;      
+        
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+
+      h1 {
+        padding-inline-start: 20px;
+        font-size: 24px;
+        color: #f57c51;
+      }
+
+      .qr-container {
+        background-color: #f57c51;
+        max-width: 800px;
+        min-height: 300px;
+
+        position: relative;
+      }
+
+      img {
+        height: 100%;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .flex {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+      }
+
+      /* for responsive */
+      @media only screen and (max-width: 400px) {
+        body {
+          background-color: lightblue;
+        }
+
+        .container {
+          flex-direction: row;
+        }
+
+        #map {
+          flex: 1;
+          min-height: 100vh;
+          z-index: -1;
+        }
+
+      }
+    </style>
+  </head>
+  <body>
+    <h1>QR</h1>
+
+    <!-- Overall container -->
+    <div class="container">
+      <!-- Map container -->
+      <div id="map">
+
+        <div class="qr-container">
+           <img src="https://www.investopedia.com/thmb/hJrIBjjMBGfx0oa_bHAgZ9AWyn0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/qr-code-bc94057f452f4806af70fd34540f72ad.png" alt="QR image"> 
+        </div>
+        <h3>Scan this QR for ME</h3>
+      </div>
+
+  
+        </div>
+  </body>
+</html>
