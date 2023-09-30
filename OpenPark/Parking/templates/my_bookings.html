@@ -276,7 +276,7 @@
 
         <div class="ticketContainer">
             <div class="ticket">
-                <div class="ticketTitle">{{ticket.vehicle_type}} Parking <a style="display: flex; justify-content, font-size: 18;: space-between;" href="{% url 'view' ticket.id %}">View</a></div>
+                <div class="ticketTitle">{{ticket.vehicle_type}} Parking <a style="display: flex; justify-content, font-size: 18;: space-between;" href="">View</a></div>{%comment%}{% url 'view' ticket.id %}{%endcomment%}
                 <hr>
                 <div class="ticketDetail">
                     <div>Parking no:&ensp; 5 </div>

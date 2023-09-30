@@ -9,6 +9,7 @@ urlpatterns = [
     path('register/account', views.register_owner_account, name="register_account"),
     path('login', views.login, name="login"),
     path('logout',views.logout_user, name="logout"),
-    path('confirm_ticket/<int:pk>',views.confirm_ticket, name="confirm_ticket"),
-    
+    path('choose_location/<int:pk>',views.location_search, name="choose_location"),
+    path('my/qr', views.qr_generator, name="qr_generator"),  
+     path('book_ticket', views.book_ticket, name="book_ticket"),
 ]

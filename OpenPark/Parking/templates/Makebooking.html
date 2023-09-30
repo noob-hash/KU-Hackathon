@@ -235,34 +235,33 @@
                 <span class="price">🚗: <b>Rs. {{parking.car_charge}}/hr</b></span><br>
               </div>
 
-              <form action="" method="POST">
+              <form action="{% url 'choose_location' parking.id %}" method="POST">
                 {% csrf_token %}
-               
-                <label for="dtime">departureTime</label>
-                <input type="time" id="dtime" name="departureTime" value="{{info.start_time}}" placeholder="departureTime">
-                <label for="atime">Arrival Time</label>
-                <input type="time" id="dtime" name="arrivalTime" placeholder="ArrivalTime">
-                <label for="country">Select Vehicle Category</label>
-                <select id="country" name="vehicle_type">
+                <div style="display:none;"><select id="country" name="vehicle_type" value="{{info.vehicle_type}}">
                   <option value="Car">Car</option>
                   <option value="Bike">Bike</option>
-                </select>
-                <input type="hidden" name="parking_code" value="{{ticket.parking_code}}">
-                <input type="hidden" name="car_charge" value="{{ticket.car_charge}}">
-                <input type="hidden" name="bike_charge" value="{{ticket.bike_charge}}">
+                </select></div>
+                <input type="hidden" id="dtime" name="start_time" value="{{info.start_time}}" placeholder="departureTime">
+                <input type="hidden" id="dtime" name="end_time" value="{{info.start_time}}" placeholder="departureTime">
+                <input type="hidden" id="location" name="location" value="{{info.location}}" placeholder="location">
+                <input type="hidden" name="parking_code" value="{{tickets.code}}">
+                <input type="hidden" name="car_charge" value="{{tickets.car_charge}}">
+                <input type="hidden" name="bike_charge" value="{{tickets.bike_charge}}">
                 {% comment %} info = {
                     'start_time': start_time,
                     'end_time': end_time,
                     'vehicle_type': vehicle_type,
                     'location':location,
                 } {% endcomment %}
-              
-                <input type="submit" value="Submit">
+              {%if tickets.parking_code %}
+                <button type="submit" class="button">Confirm
+                </button>
+                {%else%}
+                <button type="submit" class="button">Select
+                </button>
+                {%endif%}
               </form>
               <!-- <span class="icon icon-bike-car">🚲/🚗</span> -->
-              <button type="button" class="button">
-                <a href="{% url 'confirm_ticket' parking.id %}" class="button">Confirm</a>
-              </button>
             </div>
 
             {%endfor%}

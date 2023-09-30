@@ -12,6 +12,7 @@ import qrcode, string, json,random
 from django.http import HttpResponse
 from django.utils import timezone
 from django.core.files.base import ContentFile
+from Parking.models import Parking
 
 
 def generate_random_code():
@@ -177,18 +178,14 @@ def register_owner_account(request):
 
     return render(request, 'Owner_registration.html', {'error_message': error_message})
 
-def confirm_ticket(request, pk):
-    ticket = Parking.objects.get(id=pk)
-    return render(request, 'confirm_ticket.html', {'ticket': ticket})
-
-def location_search(request):
+def location_search(request,pk=None):
     if request.method == 'POST':
         location = request.POST['location']
         start_time = request.POST['start_time']
         end_time = request.POST['end_time']
         vehicle_type = request.POST['vehicle_type']
         geolocator = Nominatim(user_agent="http")
-        location2 = geolocator.geocode(location)
+        location2 = geolocator.geocode(location, timeout=None)
         lat = location2.latitude
         log = location2.longitude
         if location2:
@@ -221,9 +218,12 @@ def location_search(request):
                 'location':location,
             }
             print(len(parkings_within_radius))
-            for parking in parkings_within_radius:
-                print(parking.address,"A")
-            return render(request, 'Makebooking.html', {'parkings': parkings_within_radius, 'lat': lat, 'log': log,"info":info})
+            ticket = None
+            if pk:
+                print("A")
+                ticket = Parking.objects.get(id=pk)
+                return redirect('book_ticket')
+            return render(request, 'Makebooking.html', {'parkings': parkings_within_radius, 'lat': lat, 'log': log,"info":info,"tickets":ticket})
 
     return render(request, 'Customer.html')
    
@@ -231,6 +231,7 @@ def book_ticket(request):
     if request.method == 'POST':
         try:
             # parking = Parking.objects.get(code=parking_code)
+            print("AS")
             vehicle_type = request.POST.get('vehicle_type') 
             parking_code = request.POST.get('parking_code')
             arrivalTime = request.POST.get('start_time')
@@ -277,4 +278,14 @@ def book_ticket(request):
             return HttpResponse('Error occurred while booking the ticket')
     else:
         # go to booking page
-        return redirect('Parking/my_active_bookings') 
+        return redirect('my_active_bookings') 
+
+def qr_generator(request):
+    try:
+        ticket_id = request.session.get('ticket_id')
+        del request.session['ticket_id']
+        my_ticket = Ticket.objects.get(id=ticket_id)
+        return render(request, 'QR.html', {"ticket": my_ticket})
+    except Exception as e:
+        return redirect('my_tickets')
+   
