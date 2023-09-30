@@ -281,12 +281,12 @@
       }
 
       .home-section {
-        position: relative;
+        position: absolute;
         background-color: var(--color-body);
         min-height: 100vh;
         top: 0;
-        left: 78px;
-        max-width: calc(100% - 78px);
+        left: 80px;
+        max-width: calc(100% - 80px);
         transition: all 0.5s ease;
         z-index: 2;
       }
@@ -304,26 +304,74 @@
         width: calc(100% - 250px);
       }
 
-
       .three-container {
-        background-color: white;
+        width: 100%;
         padding: 20px;
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
+        margin-bottom: 20px;
       }
 
+      .transaction-container {
+        background-color: #eee;
+        padding: 10px;
+      }
+
+        
       .data-card {
-        width: 450px;
+        background-color: white;
+
+        width: 92vw;
+        min-height: 30vh;
         padding: 10px;
         border: 2px solid #eee;
         border-radius: 5px;
+        display: flex;
       }
 
-
-      .data-card h3 {
+      .data-card .data-card h3 {
         font-size: 24px;
         font-weight: 400;
+      }
+
+      #lineChart {
+        height: 300px;
+      }
+
+      .two-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+      }
+
+      .car-chart {
+        background-color: #fff;
+      }
+
+      .transaction {
+        width: 400px;
+        padding: 10px;
+        border-radius: 6px;
+
+        background-color: #fff;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+      }
+
+      .details {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .car-type {
+        padding: 8px;
+        border-radius: 6px;
+        background-color: #0067ac4a;
       }
     </style>
     <link
@@ -385,28 +433,48 @@
       <div class="text">Analytics</div>
 
       <div class="three-container">
-        <div class="data-card">
-          <div class="title">Total Bikes</div>
-          <h3>200</h3>
-          <!-- Container for the chart -->
-          <div style="width: 600px">
-            <canvas id="wavyLineChart"></canvas>
-          </div>
+        <div class="title">
+          <h3>Total vehicle in parks</h3>
         </div>
         <div class="data-card">
-          <div class="title"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAATCklEQVR4nO1aCXAUZ3Yep3Js5dhskkq2kq2kKqlNatdJqrbizVbWi6bn6O45NLoPdKITSdPd03PPSKPRORK6b4EEEiAQkgCBQdiAMcdymkuIw1zm8sFpLsNibDSa6Zd6/yBZ2LDr9dpZCLyqVxr19HS/6//e979umeyFvJAX8kKeclHrzVtUOtPIDDX/b7LnUdQ68ePoxKKgkhUeUGqBlj1vwoRb7q55fTeU+BZKKp14/ZVX8v5I9jwJozf/av2b++DKR7eBYngIY4ys7HlbAgOrfglHTn5AAiCnuU7Z8yQqnXinres1sBV2goIV7stp7pDseRKVTrwbGe8OKjWCP4zhMrEKKJb7oex5EbXWtE+tEzfJaeOP8X85zZ2S07xb9ryKnOZ9cpoflT2vEvZwGciZggaK5pdjNaBSNGeUyWQvyZ5Fkav5nytY4RJZ35+rpGD4U3Ja/Fc8R6s1/YlSY1qDx1VaMaCPtvnxvFkGfjzNwI2TFska/1H2LIqSFbZHJ7qlAlMdTGq+qRZ0EbaAnOF3yVk+T8Hy69kIq7+6vg+6eldDQ+sACdQtjxkuu83k8y9o8Z9kz6IoNPyRtOxycHk7HtGIOAfIaf42rnmK4YJFpV2wbsMueH3jLlgysD4UgK5WuNzR8owHgBXKKIYPMOGWB5NKh5sfYLlTNJfOMPY/QwdrG5fCoqXriLZ0DoUCUOqAy17Hsx0AmUz2ElJcLPXpGsYaX508QakVPsrI9UFt01JobB2AyjkLidMXLXlwTsx/5gPwG4ViuHiK5YMZs31gL2wDk6OZOD2SUwDD2cb/HwEI0+T9PWaeYrgBtc50QcHyE+iYWmu6qmT4IormsyaPPUalnzMFfyd71uTlhLI/phg+SaER9ygYXlJrxUB6ji/oKZ8PjW0D0NG1EvCzJsLqV2mFjQqaH45IcAfm9o6AUisEKYazyjUFYXK1MY9i+HI5zQ/LGX4BRZX9oeyplrKyP6AYIU2pFa4oNaZAPl8XbJ27HIaG3yK6ZHA9LOp/HRY+BL2O7pVAsQ/5gUaQ9h85D6lZvnEFyx1UMMKnKo3oj0ks/EwfbQ+SqtGZ9/xMa/qu7GmUGWrjvyh1wphSIwQszlZp6eAGGFy5iTjc3fsacfZxGpfimYiMd5GS37LrGPC2FkBSVFg6D9rmLSfnzOZrITOvOhCb7BlX6cQVsqcRzJQa0/2k9NKJ3r51pJ93L3yy09M1p6AaDLGOIK03++f3rYeVI7tApTEF+wbWw6o1W2Hd+p1gc7eDxdUe2LrzKKkWihV+JHtahKL5LDTK6emU0Oh5PauJY6W+BVBdv5hk0VU8F1rnDkFNYx+UVC54JACzuRrQR9sDGARH8bzA6PH3SDX0LllHyBHqZAAuX78DCanecTnD22RPg8jVxlnovLdiPsz/QsZrm5ZAY9sy8tlXuwjau1ZCU/sA1DQteWwAElOLwRDn8p/54DpEJrjHHZ5O6OkbIZpvqgfB3jpx4dJNEgg5w3c8FWtewQr+wpK50Dl/+CuV++M014gBsAVm5VaQzI++8x44i7sC6dkVgalzuBoQbC0kOIKtdULOcO3fmCM0nfeXFJXxna96/quR2X+BNFbOGDu0kdYJpK+Y3a/jPHaI5IxSKSLOGUQsUDA8LFiyARALtFG28S8G4NiZixCVWDhO0bzjG+vXCo3woYIVPqNYYa2cMXJytfG/1Wr+b6Y7TDHcT8IYLl+pEdZh1imGQ04Paq054PC0g8vb+bVUdDSDUmsKJKV7IT7FA0iI5jQNwuZdBOzAVdwJJb4FkJJVDhl51YG5PSPk+AyV6eVvJABhDJev1ol+l3cuZMz2BTQRVuLYQw2EnA39z4SbxzNyKwNFpfOANVgDMTPdQbXOFHgCg/vKius/l68BWmf2UzS/M7ug5sHpC9dApTMFce17yruwSiAxvTQQGe+eULHCWtk3JUqNsC01s1yqb1kGbXNDPbe5fRB8tQvBW9ENnvJuqJjTSzYq+F3bvBVQ39wP+Xwt0OEWDI4UHuuQ4pKLQB9jl9AhXaQV21ggI7ccRHsTuL2dkJ5TAbooKyEz4bF2KSWzlGQc/+YJcyA1qwzkDD8RxvAZap04gQHQxziCCkYIRsa7/LpIGwmWWiceoijz934npymK+3MsoTBGUClZ4QaSkHxTHSCYYetCxMb2hS0Ld2k4rMBjpb4eKC7rBntROzGeYgSISSoMOIvbgbc0AC6F6ERXAKlvbFIROIvboLljABpa+8Fe1AY2dysJBDI/BctL2ghrUMEKki7KNqGNsE4oNMIA8v5JQlTV0A9KjeldiuGr5TS/UU7zy3DJfi2nVSrx+3Ka89A68xjF8CQTCpYPorHTy1GtE4NRCW4pNascZuX6IKugCjLzqwD/j0/ySKyBZB1U2lDpp2SUEufUejP5G5/qIUCm0pqC+mi732RtAm9lNxmE4G4vM89H7lPTNAg3Pr4HO/edxEyHNkI0/1O0Va0zX54kROTZ4e/C/ynK/D0Fw7UoWWHcEOMct7nbCPL29b8BK1ZvJto/tBEa2wehQKwHbWSoTHFDwoSLE7ROnGANlnFdlM0fEeeChNRiQMCKmekmmVTrTRICmdXdAqKzGZQazKhdenvsDPQNbILopKKAQiMEY5M9gRxjNUQnuiEuqdh/9eZduHLjLuzYd4JQXIWGH5u0WakRhpzersDY8fdDj800/H99LeeVrPEVpdZ0KSLW6a+sXUw4ec/itYSiIlubt2AVzOtBXU2O9fSthb5lbxAMiE/xTCCnT84ogdlCDaTnlBPjNQbLBGY4NbPyQXqODwecEh7DgDAGM8mkNtIeoPXmoK92ibRr/0kYXL0dEZxUDpZ8/4otcPPOJ/Due9dg9brdoNKJATnNp0wljeYdhjjnOPZ8XbTdr9QKd2i9+B5Z/zRXp6B5DW66fn3mWe6HFCv4s/OrA+3zfvv+PLdnFeCGhlQDawpSjCCl51b7Fy3dCCdOfQAr1+6EbGMtqZaoBBdm3c/ozdgpgtjCNmw+ALy1CbsIZObNGe/sGQGzsxOYcEvgw6u34NrNX8Ge0XehrGoxbnxuke0zlfEdpcbUqGAFMg0+efYS2ArnBpPSS6Sq+j7A2WFaVoVfwQpBtVZ8/2HQHj8yD2M4OZm3tfRD3ddUX90iUoKxScXS0Jod0L9yK1jdnQEm3Cyx4ZagxdU5odKYpJTMMpjN15B+HpvsJdhgNDcG1qzfA1t3H4Oi0gVBldZEtrv1bctJ9s9fvAEbtoyCIdbpl9N8KTqCgMeGWwOCrQnUWlEa2bgXFvZvACRJS4dCO8vVI9tgxarN4PZ2kfuptOIIgvoTA5BTUA3ZBdWQmOaF7PxqyDHO+Y2anFEGOKfLzKsiAUDERuNZgyXgKukObHhrPxw5cR46e9aCJsIW0EbapPjkInLekqHNcOjYOahrGpBonRg0xLr8FbVLwFvRiwZLJ85eguu378GBI+ehZd5qQnwQoNFmhVYYQX5RWbMQohMKobZliHQDQog8HTCnoY9U5/xFa2DF6i1kuUbEuvwqnTCFH1OiUuX/QMkK+xSscELOCPewXzPhFiQwaPQT1Eq+xxKT04QEnVFohAMKhpMKS+fDG1sOAT7RnZVbTdZ6dFLRuNHcjEMKJFCBhFRvkNaZg7Ezi4LdC1+HPQdOk/P10fYJBSOAy9sdvPHxJ/DB1duwafthSMmqnFBpxaUhe8XvyzX8WQxizMwi3B5DTJIHTr93DYEVlyEJhC7KBhZXC7R3rYDi8i7sEpKCNTXLniRytbBIqTH507IrIF+shXyxjmgONwdwZp+SVQZZBdVTx8l3xjnAhltwHZ4zGMr+VKkRDjMGC1nvcSnF400dw3Dw8Lvw1vYxKCxbMNVGW7teg7MXrsKSwU0QnVDkV2pNQbOrI+CtXIgOSKNHzgEG4PCJ92Hx4KZQ66X5n+LbIXKGP4XzgFxuDpIooPVmbMmAhCiroAZikoqAM9cRm/F4dGIhOQ9bupzmHx8ABSP8gqJ5KT6lmPRo7MVmZwtEJxWSXo0XQpBCQwyxTuCtDaGHFyUdkJ5dgdGdoBihQs7yPuzrvX0bYWTjfnCXdONrLTiUINmNTHCDPsomKTQ89n7JW9EDB9+5AMvX7ICUzApSLblcXQBL/+JHHxNc4K0tQbVO3I924vwPH5MjlnDWerA4myGPn0PsGlz9y8l3CIjNMUmFYDQ3kApBDoKtFX1UMQW6xwSA3xaV6Bo3ivXgKGoDs7MZWIMFZqaVwOKlG2DvwVNwcOwMDK/ZDvmmBuTepAIwCJylHtJyyoFihTsqlfUHuITUejMui4BKL27HfQK2yDyhZkpzuGoEr4BKI97FeaBgaw16K3uRMUo7958g4Hfy7BXSQUJESkgg6M8Kd9KyyyUMPN47X6hFBgi03gJdi16H4XW7gNFbYNHSDZCYVkKWqehoIuciSdNGWNGuHY84/yrN/wNFcxKWTeiRVDsg5Z2VW0XKdMeeY1DfPAhtXath7Og5OHPhMjg8c4GJsIDZ1Qy2olYwu5sRpAKUlk/CqWwYw3nDIoR/nhFu/CuK5bfiBAedzuGqiPNJGSX4yCswQ5v/skLNZyhCNBYcnu4gZh+nOTv3nwSvbyHQOtM1ZHhKlsvGYM7mq6fYIhNuBk/pfCgs7YbC0gWAhAgrYOzoeTj7/lVIz/ERXybPLxDrAH2doTX97VQAKJovoFg+MGt2Jdg9bSSjaMzY0TOwbPlmEuFcvgG0DzcZ34bSenGitmlAunL9Y4L8CGgjb+4HfZTDP/kyhFzNteij7Q+wjTq97TArt5Isx0tXbxM7E1JLAAlRfIoXepdugDv3PoPRw2fI9XlLPQmCo6gVlBp+QqEWZn4OfjTv1kRa7wu2RpJ93IRg+dy6cx90UXaoaV4Ofcu3ksiuWrsTdu07QXTz9jHYufcd8nnv6Ck4MHqK3PDw0bNT+vaBk7Bj73HYuGUU7IWdYHa2k/M3bTsE23YdJZ/fPngaLl27TcoeSc/ZD2/Atj3vQGXdUlBphE//h7X+dWj982sT07zS5INT3EQVl/cQR3fuPU7sO3T8fXCXzgfB3gY379wn3yWkeIlP+BsERlov+uUM1/B5BTB8uT7GcX/ywggwmXnVcPFq6LW0ZcPbIdtYRxxAAx+ndz/5DD75dPwRxZtPP6dizmIoqez90m+R61/66A5cuHwTjr17kQw4epdtJFWBoDeFU6ywKy6paCqbMTMLoaF1iNzn9PkrwBgsMK93Hbi88yFPaIArH90l32Xk4gatjPzGWdyBW/EHcpovng6ANrXe/ABBAtdJVn4V8mrShlIyKyC7oBZRHgaGtxFUxuxM1937T8Kho+fgyPELj+juA6dg+94TU2pzd4LobH/k2KTidTZuG4O1b+4DX10/DjwmVFrTwHQeL2e4Nw2x9qDxIfgiYTOaG4mT12/dA1/9ALETA9E3tAVu3/2U+KCLtEN2QVUIBzyIG5bPHr5NEhLcMCByF4i1JEI2N3nYAMNrd8Do4bNA60SCpl7foil1FHdBgdhEPvtql0BVXT9YnR1QWRP6jMemn486M70UEtJKv3Qc1V3aDTnGugk23OLHZwYPM/8Id8fxtsZg/myyUgtMtaTs9x86TYKAGd+9/xSMHrsAN27fI8eGhreSFm4rbCWdDadF2CIVWiM1dWEkFwqWv5sxuxJwYIEtBskQEoztu49iL4eM2dVkWaCmZlWQNkiHm8EQ5yAoGx4Tej7PRlqP6qJsBzRR1n1MuOXt6arSmc6otKazXzyOqg4Xd1As3x3GCjNx8Drd8akA0MYf4z1wToDb8UkciE8uhmMnLhCHp+uW7YeID7NyPn/xAtu1ghXuURT16NyAYrgqtV70p2aXg8keAkPs3Rhhi7MN6ppxWjOEc3YEJuJ0nqkWsGoSUj3AGsySSmPaLfuWRcFyxzQRlmDIxg5C2hAL0FEkVZjxvv43wWRvIbZjxtEX3tYIor0ZhzF+OW3yfenCP9OavouRMcQ5JPzBJMszmusgIa0Yd1mk5SSkFANSUDyHVAuCZlZZ6BEULc74tgNAMeaf4Ksys3IqwOpqISTH6e0gLC8upRgMMU6SHMQHzhyqErJcxDps48hAbz2pwmQUzc3AHVdcciFkYJlNEaMvK4Iljr6Ss0ofOm/6HFS+ZQmjBUHBcDiOg7yHSwHZ6yQ7nFTEM+QMlsJWwO6Bvim1ov7XX5wxshTDP1DrxSBucXE/gNiAnBsHmfh2hmBrIIPR0PSVk6a3qv8rUdC8DwMfGe+U0BZs3by1kdiIiG92NhHbcQKNgxcFy38qZ3nmK11cqcn9d4rldxNQM5gndFFWSEjxkPleeIwd9wi425OUGuGsQiOEy35PQioWbWA4Sa0XpdjkIpiJNsY6IDLBRSZKIaYpHMJHc7/9DZiC/5CruQZ0lLzEwAo3FBr+nJIRlslZo/IpeSvzJWzjcpYfVGmF40qNcEPBCLeUrOmoguFr5DT/n79vA1/IC3khL+SFvJAXInsq5X8BryqrcCoZPqsAAAAASUVORK5CYII="> Total Bikes  </div>
-          <h3>200</h3>
+          <!-- <div class="title">Total Bikes</div>
+          <h3>200</h3> -->
           <!-- Container for the chart -->
-          <div style="width: 600px">
-            <canvas id="wavyLineChart2"></canvas>
+          <div style="width: 100%; margin: 0 auto">
+            <!-- Create a canvas element to render the chart -->
+            <canvas id="lineChart"></canvas>
+          </div>
+
+          <div class="transaction-container">
+            <div class="title">Recent Transaction</div>
+            <div class="transaction">
+              <div class="details">
+                <h4 class="title">Civil mall Parking</h4>
+                <div class="title">Fulbari, Basantapur</div>
+                <div class="title">2 hrs</div>
+              </div>
+              <div class="car-type">
+                <div class="type">car</div>
+                <div class="price">Rs. 200</div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="data-card">
-          <div class="title">Total Bikes</div>
-          <h3>200</h3>
-          <!-- Container for the chart -->
-          <div style="width: 600px">
-            <canvas id="wavyLineChart3Q"></canvas>
+      </div>
+
+      <div class="two-container">
+        <div class="car-chart">
+          <div class="title">Car spacing chart</div>
+          <div style="margin: 0 auto">
+            <!-- Create a canvas element to render the chart -->
+            <canvas id="doughnutChart"></canvas>
+          </div>
+        </div>
+        <div class="car-chart">
+          <div class="title">Bike spacing chart</div>
+          <div style="margin: 0 auto">
+            <!-- Create a canvas element to render the chart -->
+            <canvas id="doughnutChartBike"></canvas>
           </div>
         </div>
       </div>
@@ -414,165 +482,125 @@
 
     <!-- JavaScript to create the chart -->
     <script>
-        // Create a function to generate a wavy data set (sine wave)
-        function generateWavyData() {
-            var data = [];
-            for (var i = 0; i <= 360; i += 10) {
-                var radians = (i * Math.PI) / 180;
-                var y = Math.sin(radians) * 10 + 15; // Adjust the amplitude and offset as needed
-                data.push(y);
-            }
-            return data;
-        }
+      // Define the data for the chart
+      var data = {
+        labels: ["January", "February", "March", "April", "May", "June"],
+        datasets: [
+          {
+            label: "Bike",
+            borderColor: "blue",
+            backgroundColor: "rgba(0, 0, 255, 0.2)",
+            data: [10, 15, 20, 25, 30, 35],
+            fill: true,
+          },
+          {
+            label: "Car",
+            borderColor: "red",
+            backgroundColor: "rgba(255, 0, 0, 0.2)",
+            data: [50, 45, 40, 35, 30, 25],
+            fill: true,
+          },
+        ],
+      };
 
-        // Data for the chart
-        var data = {
-            labels: Array.from({ length: 37 }, (_, i) => i * 10), // [0, 10, 20, ..., 360]
-            datasets: [{
-                label: "Wavy Line",
-                data: generateWavyData(),
-                borderColor: "rgba(75, 192, 192, 1)",
-                borderWidth: 2,
-                fill: false
-            }]
-        };
-
-        // Configuration options
-        var options = {
-            responsive: false, // Disable responsiveness
-            maintainAspectRatio: false, // Disable aspect ratio
-            scales: {
-                x: {
-                    display: false, // Hide x-axis
-                },
-                y: {
-                    display: false, // Hide y-axis
-                }
+      // Define the chart options
+      var options = {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: "Months",
             },
-            plugins: {
-                legend: {
-                    display: false, // Hide legend
-                }
-            }
-        };
+          },
+          y: {
+            title: {
+              display: true,
+              text: "Number of Vehicles",
+            },
+          },
+        },
+      };
 
-        // Get the canvas element
-        var ctx = document.getElementById("wavyLineChart").getContext("2d");
-
-        // Create the line chart
-        var myLineChart = new Chart(ctx, {
-            type: "line",
-            data: data,
-            options: options
-        });
+      // Create the chart on the canvas element
+      var ctx = document.getElementById("lineChart").getContext("2d");
+      var myLineChart = new Chart(ctx, {
+        type: "line",
+        data: data,
+        options: options,
+      });
     </script>
+
+    <!-- Javascript Cars space -->
     <script>
-        // Create a function to generate a wavy data set (sine wave)
-        function generateWavyData() {
-            var data = [];
-            for (var i = 0; i <= 360; i += 10) {
-                var radians = (i * Math.PI) / 180;
-                var y = Math.sin(radians) * 10 + 15; // Adjust the amplitude and offset as needed
-                data.push(y);
-            }
-            return data;
-        }
+      // Define the data for the doughnut chart
+      var data = {
+        labels: ["Spaces Captured", "Spaces Available"],
+        datasets: [
+          {
+            data: [75, 25], // Example values, you can adjust these
+            backgroundColor: ["#FF5733", "#36A2EB"], // Colors for the segments
+          },
+        ],
+      };
 
-        // Data for the chart
-        var data = {
-            labels: Array.from({ length: 37 }, (_, i) => i * 10), // [0, 10, 20, ..., 360]
-            datasets: [{
-                label: "Wavy Line",
-                data: generateWavyData(),
-                borderColor: "rgba(75, 192, 192, 1)",
-                borderWidth: 2,
-                fill: false
-            }]
-        };
+      // Define the chart options
+      var options = {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: "50%", // Adjust the cutout percentage to control the size of the doughnut hole
+        plugins: {
+          legend: {
+            display: true,
+            position: "bottom",
+          },
+        },
+      };
 
-        // Configuration options
-        var options = {
-            responsive: false, // Disable responsiveness
-            maintainAspectRatio: false, // Disable aspect ratio
-            scales: {
-                x: {
-                    display: false, // Hide x-axis
-                },
-                y: {
-                    display: false, // Hide y-axis
-                }
-            },
-            plugins: {
-                legend: {
-                    display: false, // Hide legend
-                }
-            }
-        };
-
-        // Get the canvas element
-        var ctx = document.getElementById("wavyLineChart2").getContext("2d");
-
-        // Create the line chart
-        var myLineChart = new Chart(ctx, {
-            type: "line",
-            data: data,
-            options: options
-        });
+      // Create the doughnut chart on the canvas element
+      var ctx = document.getElementById("doughnutChart").getContext("2d");
+      var myDoughnutChart = new Chart(ctx, {
+        type: "doughnut",
+        data: data,
+        options: options,
+      });
     </script>
+
+    <!-- Javascript Bike space -->
     <script>
-        // Create a function to generate a wavy data set (sine wave)
-        function generateWavyData() {
-            var data = [];
-            for (var i = 0; i <= 360; i += 10) {
-                var radians = (i * Math.PI) / 180;
-                var y = Math.sin(radians) * 10 + 15; // Adjust the amplitude and offset as needed
-                data.push(y);
-            }
-            return data;
-        }
+      // Define the data for the doughnut chart
+      var data = {
+        labels: ["Spaces Captured", "Spaces Available"],
+        datasets: [
+          {
+            data: [75, 25], // Example values, you can adjust these
+            backgroundColor: ["#FF5733", "#36A2EB"], // Colors for the segments
+          },
+        ],
+      };
 
-        // Data for the chart
-        var data = {
-            labels: Array.from({ length: 37 }, (_, i) => i * 10), // [0, 10, 20, ..., 360]
-            datasets: [{
-                label: "Wavy Line",
-                data: generateWavyData(),
-                borderColor: "rgba(75, 192, 192, 1)",
-                borderWidth: 2,
-                fill: false
-            }]
-        };
+      // Define the chart options
+      var options = {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: "50%", // Adjust the cutout percentage to control the size of the doughnut hole
+        plugins: {
+          legend: {
+            display: true,
+            position: "bottom",
+          },
+        },
+      };
 
-        // Configuration options
-        var options = {
-            responsive: false, // Disable responsiveness
-            maintainAspectRatio: false, // Disable aspect ratio
-            scales: {
-                x: {
-                    display: false, // Hide x-axis
-                },
-                y: {
-                    display: false, // Hide y-axis
-                }
-            },
-            plugins: {
-                legend: {
-                    display: false, // Hide legend
-                }
-            }
-        };
-
-        // Get the canvas element
-        var ctx = document.getElementById("wavyLineChart3").getContext("2d");
-
-        // Create the line chart
-        var myLineChart = new Chart(ctx, {
-            type: "line",
-            data: data,
-            options: options
-        });
+      // Create the doughnut chart on the canvas element
+      var ctx = document.getElementById("doughnutChartBike").getContext("2d");
+      var myDoughnutChart = new Chart(ctx, {
+        type: "doughnut",
+        data: data,
+        options: options,
+      });
     </script>
-
 
     <!-- Scripts for sidebar -->
     <script>
