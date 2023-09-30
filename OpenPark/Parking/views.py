@@ -91,7 +91,10 @@ def owner_dashboard(request):
 def customer_dashboard(request):
     if request.user:
         # Get the parking codes owned by the logged-in staff member
-        return render(request, 'Customer.html')
+        parkings = Parking.objects.all()
+        for parking in parkings:
+            print(parking.name)
+        return render(request, 'Customer.html',{'parkings': parkings})
     else:
         return redirect('login')
 

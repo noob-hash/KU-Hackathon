@@ -182,7 +182,6 @@ def register_owner_account(request):
     return render(request, 'Owner_registration.html', {'error_message': error_message})
 
 def location_search(request):
-
     if request.method == 'POST':
         location = request.POST['location']
         start_time = request.POST['start_time']
