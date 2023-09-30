@@ -182,6 +182,7 @@
 
       .review-container {
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: flex-start;
         gap: 10px;
@@ -210,6 +211,53 @@
       .user-details .comment {
         color: #323232d3;
       }
+
+
+      /* Styles for the popup container */
+
+      #openPopup {
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid #eb8e6d;
+      }
+.popup {
+    display: none;
+  
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Styles for the popup content */
+.popup-content {
+
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Styles for the close button */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.a_review {
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  gap: 4px;
+  background-color: white;
+}
+
+button {
+  background-color: f57c51;
+  color: white;
+}
 
       /* for responsive */
       @media only screen and (max-width: 400px) {
@@ -275,19 +323,72 @@
 
               <div class="review">
                 <div class="review-container">
-                    <div class="pic">
+                  <h4 id="openPopup">Write a Review</h4>
+    <div id="reviewPopup" class="popup">
+        <div class="popup-content">
+            <span class="close" id="closePopup">&times;</span>
+            <button>Write a Review</button>
+            <form action="" method="POST" id="reviewForm">
+                <!-- Form fields go here -->
+                <textarea name="reviewText" placeholder="Write your review"></textarea>
+                <button type="submit">Submit Review</button>
+            </form>
+        </div>
+    </div>
+    <div class="a_review">
+      <div class="pic">
                         <box-icon name='user'></box-icon>
                     </div>
                     <div class="user-details">
                         <div class="name">Sadhana Sapkota</div>
                         <div class="comment">Waau chal chal teti ramoro ni thye na </div>
                     </div>
+    </div>
+                    
                 </div>
               </div>
             </div>
         
       </div>
     </div>
+
+    <script>
+      // Get references to the popup and button elements
+const reviewPopup = document.getElementById("reviewPopup");
+const openPopupButton = document.getElementById("openPopup");
+const closePopupButton = document.getElementById("closePopup");
+
+// Function to open the popup
+function openPopup() {
+    reviewPopup.style.display = "block";
+}
+
+// Function to close the popup
+function closePopup() {
+    reviewPopup.style.display = "none";
+}
+
+// Event listeners
+openPopupButton.addEventListener("click", openPopup);
+closePopupButton.addEventListener("click", closePopup);
+
+// Close the popup if the user clicks outside of it
+window.addEventListener("click", function(event) {
+    if (event.target === reviewPopup) {
+        closePopup();
+    }
+});
+
+// Prevent the form from submitting (you can handle form submission as needed)
+const reviewForm = document.getElementById("reviewForm");
+reviewForm.addEventListener("submit", function(event) {
+    event.preventDefault();
+    // Handle form submission here, e.g., send the review data to a server
+    closePopup();
+});
+
+    </script>
+
 
     <script>
       var map = L.map("map");
