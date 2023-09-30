@@ -296,40 +296,26 @@
         position: fixed;
         left: 80px;
 
-        display: grid;
-        grid-template-columns: repeat(6, 1fr);
-        grid-template-rows: repeat(6, 1fr);
-        grid-column-gap: 0px;
-        grid-row-gap: 0px;
-        background-color: #0067ac;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
+
         width: 90%;
         height: 700px;
       }
 
-      .div1 {
-        grid-area: 1 / 1 / 4 / 4;
-        background-color: #004f83;
-      }
-      .div2 {
-        grid-area: 3 / 6 / 4 / 7;
-        background-color: rebeccapurple;
-      }
-      .div3 {
-        grid-area: 1 / 4 / 4 / 7;
-        background-color: rgb(178, 132, 224);
-      }
-      .div4 {
-        grid-area: 4 / 1 / 7 / 4;
-        background-color: rgb(64, 13, 114);
-      }
-      .div5 {
-        grid-area: 4 / 4 / 7 / 7;
-        background-color: rgb(53, 37, 69);
+      .flex-container {
+        /* min-height: 400px; */
+        display: flex;
+        flex: 1;
       }
 
-      
-
-
+      video {
+        width: 100%;
+        height: auto;
+        border: 2px solid white;
+      }
     </style>
     <link
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
@@ -384,11 +370,34 @@
     </div>
 
     <div class="parent">
-      <div class="div1"></div>
-      <div class="div2"></div>
-      <div class="div3"></div>
-      <div class="div4"></div>
-      <div class="div5"></div>
+      <div class="flex-container">
+        <div class="div1">
+            <video width="720" height="240" autoplay muted autoplay>
+                <source src="1.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+              </video>
+        </div>
+        <div class="div2">
+            <video width="720" height="240" autoplay muted autoplay>
+                <source src="2.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+              </video>
+        </div>
+      </div>
+      <div class="flex-container">
+        <div class="div3">
+            <video width="720" height="240" autoplay muted autoplay>
+                <source src="3.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+              </video>
+        </div>
+        <div class="div4">
+            <video width="720" height="240" autoplay muted autoplay>
+                <source src="4.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+              </video>
+        </div>
+      </div>
     </div>
 
     <!-- Scripts for sidebar -->
