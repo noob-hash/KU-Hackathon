@@ -222,7 +222,7 @@ def location_search(request):
             }
             print(len(parkings_within_radius))
             for parking in parkings_within_radius:
-                print(parking.name,"A")
+                print(parking.address,"A")
             return render(request, 'Makebooking.html', {'parkings': parkings_within_radius, 'lat': lat, 'log': log,"info":info})
 
     return render(request, 'Customer.html')

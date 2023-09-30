@@ -17,7 +17,13 @@
     ></script>
     <style>
       /* Updated map size and border styling */
-
+      :root {
+        --color-default: #e05119;
+        --color-second: #ca400a;
+        --color-white: #fff;
+        --color-body: #fdf8f2;
+        --color-light: #fffaf4;
+      }
       * {
         margin: 0;
         padding: 0;
@@ -95,12 +101,15 @@
         width: 100%;
       }
 
-      button {
+      .button {
         padding: 10px 20px;
         font-size: 16px;
         border: none;
         border-radius: 5px;
         cursor: pointer;
+        background: var(--color-default);
+        color: white;
+        text-decoration:none;
       }
 
       #searchButton {
@@ -139,8 +148,12 @@
         padding: 10px;
         border-bottom: 1px solid #ddd;
         display: flex;
-        flex-direction: row; /* Arrange elements horizontally */
+        flex-direction: column; /* Arrange elements horizontally */
         align-items: center;
+      }
+      .image {
+        height: 150px;
+        width: 150px;
       }
 
       .flex {
@@ -211,24 +224,50 @@
                     <img
                       src="{% static 'Customer/img/search.png' %}"
                       alt="Place Image"
-                      class="place-image"
+                      class="place-image image"
                     />
                 </div>
                
               <div class="place-details">
                 <span class="place-name">{{parking.name}}</span><br>
-                <span class="address">{{parking.location}}</span><br>
+                <span class="address">{{parking.address}}</span><br>
                 <span class="price">🚲: <b>Rs. {{parking.bike_charge}}/hr</b></span><br>
                 <span class="price">🚗: <b>Rs. {{parking.car_charge}}/hr</b></span><br>
               </div>
 
+              <form action="" method="POST">
+                {% csrf_token %}
+               
+                <label for="dtime">departureTime</label>
+                <input type="time" id="dtime" name="departureTime" value="{{info.start_time}}" placeholder="departureTime">
+                <label for="atime">Arrival Time</label>
+                <input type="time" id="dtime" name="arrivalTime" placeholder="ArrivalTime">
+                <label for="country">Select Vehicle Category</label>
+                <select id="country" name="vehicle_type">
+                  <option value="Car">Car</option>
+                  <option value="Bike">Bike</option>
+                </select>
+                <input type="hidden" name="parking_code" value="{{ticket.parking_code}}">
+                <input type="hidden" name="car_charge" value="{{ticket.car_charge}}">
+                <input type="hidden" name="bike_charge" value="{{ticket.bike_charge}}">
+                {% comment %} info = {
+                    'start_time': start_time,
+                    'end_time': end_time,
+                    'vehicle_type': vehicle_type,
+                    'location':location,
+                } {% endcomment %}
+              
+                <input type="submit" value="Submit">
+              </form>
               <!-- <span class="icon icon-bike-car">🚲/🚗</span> -->
               <button type="button" class="button">
-                <a href="confirm_ticket/{{parkings.id}} %}" class="searchButton">Confirm</a>
+                <a href="{% url 'confirm_ticket' parking.id %}" class="button">Confirm</a>
               </button>
             </div>
+
             {%endfor%}
-          </div>
+        </div>
+
         </div>
       </div>
     </div>
