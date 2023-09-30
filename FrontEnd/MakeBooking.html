@@ -1,0 +1,361 @@
+{%load static%}
+{% include "Customer_nav.html" %}
+
+<section class="home-section">
+   
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <style>
+      /* Updated map size and border styling */
+      :root {
+        --color-default: #e05119;
+        --color-second: #ca400a;
+        --color-white: #fff;
+        --color-body: #fdf8f2;
+        --color-light: #fffaf4;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+       color: #323232;  
+        font-family: "Poppins", sans-serif;
+      }
+
+      .container {
+        padding: 20px;
+        min-height: 92vh;
+        display: flex;
+        gap: 20px;
+      }
+
+      #map {
+        flex: 4;
+        height: 92vh; /* Adjust the height as desired */
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        /* margin-right: 320px; Width of the panel in desktop view */
+      }
+
+      /* Styling for the sliding panel */
+      .panel {
+        width:250px;
+        top: 0;
+        right: 0; /* Fixed to the right in desktop view */
+        /* width: 400px; Width of the panel in desktop view */
+        background-color: #fff;
+        overflow-y: auto;
+        box-shadow: -1px 0px 10px rgba(0, 0, 0, 0.5);
+      }
+
+      .panel-header {
+        text-align: center;
+        padding: 20px;
+        background-color: #f57c51;
+        color: white;
+        font-weight: bold;
+      }
+
+      .panel-content {
+        padding: 20px;
+      }
+
+      /* Center and style the search box inside the panel */
+      form {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        gap: 16px;
+      }
+
+      .input-wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+    
+
+      input, select {
+        padding: 10px;
+        font-size: 16px;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        width: 100%;
+      }
+
+      .button {
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        background: var(--color-default);
+        color: white;
+        text-decoration:none;
+      }
+
+      #searchButton {
+        background-color: #f57c51;
+        color: white;
+
+        width: 50%; /* Set the button width to match the input */
+      }
+
+      #searchButton:hover {
+        background-color: #eb8e6d;
+      }
+
+
+      h1 {
+        padding-inline-start: 20px;
+        font-size: 24px;
+        color: #f57c51;
+        margin-top: 20px;
+      }
+
+      /* Styling for the nearby places list */
+      #nearbyPlacesList {
+        margin-top: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        padding: 10px;
+        max-height: 400px; /* Adjusted height */
+        overflow-y: auto; /* Enable vertical scrolling */
+      }
+
+      /* Style each nearby place item */
+      .nearby-place {
+        margin: 5px 0;
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        display: flex;
+        flex-direction: column; /* Arrange elements horizontally */
+        align-items: center;
+      }
+      .image {
+        height: 150px;
+        width: 150px;
+      }
+
+      .flex {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .flex > input {
+        flex: 1;
+      }
+
+      .flex > button {
+        flex: 1;
+      }
+
+      /* for responsive */
+      @media only screen and (max-width: 400px) {
+        body {
+          background-color: lightblue;
+        }
+
+        .container {
+          flex-direction: row;
+        }
+
+        #map {
+          flex: 1;
+          min-height: 100vh;
+          z-index: -1;
+        }
+
+        .panel {
+          min-height: 100vh;
+          position: absolute;
+          left: 50;
+          top: 50;
+          transform: translate(-50, -50);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Serch destination parking</h1>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/leaflet-routing-machine/dist/leaflet-routing-machine.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+
+    <!-- Overall container -->
+    <div class="container">
+      <!-- Map container -->
+      <div id="map"></div>
+
+      <div class="panel" id="infoPanel">
+        <div class="panel-header">Place Details</div>
+        <div class="panel-content" id="infoContent">
+          <!-- Place details will be populated here -->
+          
+
+          <div id="nearbyPlacesList">
+            {%for parking in parkings%}
+            <div class="nearby-place">
+                <div class="image">
+                    <img
+                      src="{% static 'Customer/img/search.png' %}"
+                      alt="Place Image"
+                      class="place-image image"
+                    />
+                </div>
+               
+              <div class="place-details">
+                <span class="place-name">{{parking.name}}</span><br>
+                <span class="address">{{parking.address}}</span><br>
+                <span class="price">🚲: <b>Rs. {{parking.bike_charge}}/hr</b></span><br>
+                <span class="price">🚗: <b>Rs. {{parking.car_charge}}/hr</b></span><br>
+              </div>
+
+              <form action="" method="POST">
+                {% csrf_token %}
+               
+                <label for="dtime">departureTime</label>
+                <input type="hidden" id="dtime" name="departureTime" value="{{info.start_time}}" placeholder="departureTime">
+                <label for="atime">Arrival Time</label>
+                <input type="hidden" id="dtime" name="arrivalTime" value="{{info.end_time}}" placeholder="ArrivalTime">
+                <label for="country">Select Vehicle Category</label>
+                <select id="country" name="vehicle_type" value="{{info.vehicle_type}}">
+                  <option value="Car">Car</option>
+                  <option value="Bike">Bike</option>
+                </select>
+                <label for="location">Location</label>
+                <input type="hidden" id="location" name="location" value="{{info.location}}" placeholder="location">
+                <input type="hidden" name="parking_code" value="{{ticket.parking_code}}">
+                <input type="hidden" name="car_charge" value="{{ticket.car_charge}}">
+                <input type="hidden" name="bike_charge" value="{{ticket.bike_charge}}">
+                {% comment %} info = {
+                    'start_time': start_time,
+                    'end_time': end_time,
+                    'vehicle_type': vehicle_type,
+                    'location':location,
+                } {% endcomment %}
+              
+                <button type="submit" value="Submit">
+              </form>
+              <!-- <span class="icon icon-bike-car">🚲/🚗</span> -->
+              <button type="button" class="button">
+                <a href="{% url 'confirm_ticket' parking.id %}" class="button">Confirm</a>
+              </button>
+            </div>
+
+            {%endfor%}
+        </div>
+
+        </div>
+      </div>
+    </div>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+    <script>
+        var map = L.map("map");
+      var userMarker;
+      var routingControl;
+
+      map.setView([{{lat}}, {{log}}], 13);
+
+      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution:
+          '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      }).addTo(map);
+
+      navigator.geolocation.watchPosition(success, error);
+      let marker, circle, zoomed;
+
+      function success(pos) {
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+        const accuracy = pos.coords.accuracy;
+
+        // Clear existing user's marker
+        if (userMarker) {
+          map.removeLayer(userMarker);
+        }
+
+        userMarker = L.marker([lat, lng]).addTo(map);
+
+        if (marker) {
+          map.removeLayer(marker);
+          map.removeLayer(circle);
+        }
+
+        marker = L.marker([lat, lng]).addTo(map);
+        circle = L.circle([lat, lng], { radius: accuracy }).addTo(map);
+
+        if (zoomed) {
+          zoomed = map.fitBounds(circle.getBounds());
+        }
+
+        map.setView([lat, lng]);
+      }
+
+      function error(err) {
+        if (err === 1) {
+          alert("Please allow geolocation access");
+        } else {
+          alert("Cannot get current location");
+        }
+      }
+
+      // Function to calculate and display the route to a parking location
+      function calculateRouteToParking(parkingLat, parkingLng) {
+        if (routingControl) {
+          map.removeControl(routingControl);
+        }
+
+        var parkingLocation = L.latLng(parkingLat, parkingLng);
+        routingControl = L.Routing.control({
+          waypoints: [
+            L.latLng(lat, lng), // Your current location
+            parkingLocation, // Parking location
+          ],
+          routeWhileDragging: true,
+        }).addTo(map);
+      }
+
+      // Add event listener to the button for route calculation
+      document
+        .getElementById("calculateRouteButton")
+        .addEventListener("click", function () {
+          // Replace these coordinates with the actual parking location's latitude and longitude
+          var parkingLat = 51.51; // Replace with the parking location's latitude
+          var parkingLng = -0.1; // Replace with the parking location's longitude
+          calculateRouteToParking(parkingLat, parkingLng);
+        });
+        </script>
+</section>
