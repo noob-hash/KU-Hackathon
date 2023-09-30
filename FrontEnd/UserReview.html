@@ -6,10 +6,10 @@
     <title>Map Parking Location</title>
     <link
       rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
 
-    <script
-      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 
     <style>
@@ -22,8 +22,8 @@
       }
 
       body {
-       font-size: 16px;
-       color: #323232;
+        font-size: 16px;
+        color: #323232;
         font-family: "Poppins", sans-serif;
       }
 
@@ -89,9 +89,8 @@
         gap: 8px;
       }
 
-    
-
-      input, select {
+      input,
+      select {
         padding: 10px;
         font-size: 16px;
         border: 2px solid #ccc;
@@ -117,7 +116,6 @@
       #searchButton:hover {
         background-color: #eb8e6d;
       }
-
 
       h1 {
         padding-inline-start: 20px;
@@ -189,7 +187,7 @@
       }
 
       .pic {
-        width: 40px;
+        width: 50px;
         height: 40px;
         border-radius: 50px;
         background-color: #bfbfbf;
@@ -212,52 +210,65 @@
         color: #323232d3;
       }
 
-
       /* Styles for the popup container */
 
       #openPopup {
         padding: 10px;
         border-radius: 10px;
         border: 1px solid #eb8e6d;
+        cursor: pointer;
       }
-.popup {
-    display: none;
-  
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-}
+      .popup {
+        display: none;
 
-/* Styles for the popup content */
-.popup-content {
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
 
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-}
+      /* Styles for the popup content */
+      .popup-content {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+      }
 
-/* Styles for the close button */
-.close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 24px;
-    cursor: pointer;
-}
+      /* Styles for the close button */
+      .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 24px;
+        cursor: pointer;
+      }
 
-.a_review {
-  padding: 10px;
-  border-radius: 8px;
-  display: flex;
-  gap: 4px;
-  background-color: white;
-}
+      .a_review {
+        padding: 10px;
+        border-radius: 8px;
+        display: flex;
+        gap: 4px;
+        background-color: white;
+      }
 
-button {
-  background-color: f57c51;
-  color: white;
-}
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      textarea {
+        width: 100%;
+        border: 2px solid #eee;
+        border-radius: 4px;
+        padding: 10px;
+      }
+
+      button {
+        background-color: #f57c51;
+        color: white;
+      }
 
       /* for responsive */
       @media only screen and (max-width: 400px) {
@@ -303,92 +314,93 @@ button {
         <div class="panel-header">Place Details</div>
         <div class="panel-content" id="infoContent">
           <!-- Place details will be populated here -->
-            <div class="nearby-place">
-              <img
-                src="https://media.istockphoto.com/id/1366797439/photo/underground-parking-lot-civil-defense-parking-space.jpg?s=612x612&w=0&k=20&c=uyVFDe-zZ9SsXxDDaCthjHOZoF48zW899j6bbcQfPYI="
-                alt="Place Image"
-                class="place-image"
-                style
-              />
-              <div class="place-details">
-                <p class="place-name">Civil Mall</p>
-                <span class="address">Chetrapati</span>
-                <span class="price"
-                  >Bike/Car: Rs.
-                  25/100 per
-                  hour</span
-                >
-              </div>
-            
+          <div class="nearby-place">
+            <img
+              src="https://media.istockphoto.com/id/1366797439/photo/underground-parking-lot-civil-defense-parking-space.jpg?s=612x612&w=0&k=20&c=uyVFDe-zZ9SsXxDDaCthjHOZoF48zW899j6bbcQfPYI="
+              alt="Place Image"
+              class="place-image"
+              style
+            />
+            <div class="place-details">
+              <p class="place-name">Civil Mall</p>
+              <span class="address">Chetrapati</span>
+              <span class="price">Bike/Car: Rs. 25/100 per hour</span>
+            </div>
 
-              <div class="review">
-                <div class="review-container">
-                  <h4 id="openPopup">Write a Review</h4>
-    <div id="reviewPopup" class="popup">
-        <div class="popup-content">
-            <span class="close" id="closePopup">&times;</span>
-            <button>Write a Review</button>
-            <form action="" method="POST" id="reviewForm">
-                <!-- Form fields go here -->
-                <textarea name="reviewText" placeholder="Write your review"></textarea>
-                <button type="submit">Submit Review</button>
-            </form>
-        </div>
-    </div>
-    <div class="a_review">
-      <div class="pic">
-                        <box-icon name='user'></box-icon>
+            <div class="review">
+
+              <div class="review-container">
+                <h4 id="openPopup">Write a Review</h4>
+                <div id="reviewPopup" class="popup">
+<!-- Thisis the review form -->
+                  <div class="popup-content">
+                    <span class="close" id="closePopup">&times;</span>
+                    <h3>Write a Review</h3 >
+                    <form action="" method="POST" id="reviewForm">
+                      <!-- Form fields go here -->
+                      <textarea
+                        name="reviewText"
+                        placeholder="Write your review"
+                      ></textarea>
+                      <button type="submit">Submit Review</button>
+                    </form>
+                  </div>
+
+                </div>
+                <h4 style="text-align: left; width: 100%; margin-top: 20px; font-weight: 500;">Recent Reviews</h4>
+                <div class="a_review">
+                  <div class="pic">
+                    <box-icon name="user"></box-icon>
+                  </div>
+                  <div class="user-details">
+                    <div class="name">Sadhana Sapkota</div>
+                    <div class="comment">
+                      Waau yo parking space ta malai attinai maan paryo 
                     </div>
-                    <div class="user-details">
-                        <div class="name">Sadhana Sapkota</div>
-                        <div class="comment">Waau chal chal teti ramoro ni thye na </div>
-                    </div>
-    </div>
-                    
+                  </div>
                 </div>
               </div>
             </div>
-        
+          </div>
+        </div>
       </div>
     </div>
 
     <script>
       // Get references to the popup and button elements
-const reviewPopup = document.getElementById("reviewPopup");
-const openPopupButton = document.getElementById("openPopup");
-const closePopupButton = document.getElementById("closePopup");
+      const reviewPopup = document.getElementById("reviewPopup");
+      const openPopupButton = document.getElementById("openPopup");
+      const closePopupButton = document.getElementById("closePopup");
 
-// Function to open the popup
-function openPopup() {
-    reviewPopup.style.display = "block";
-}
+      // Function to open the popup
+      function openPopup() {
+        reviewPopup.style.display = "block";
+      }
 
-// Function to close the popup
-function closePopup() {
-    reviewPopup.style.display = "none";
-}
+      // Function to close the popup
+      function closePopup() {
+        reviewPopup.style.display = "none";
+      }
 
-// Event listeners
-openPopupButton.addEventListener("click", openPopup);
-closePopupButton.addEventListener("click", closePopup);
+      // Event listeners
+      openPopupButton.addEventListener("click", openPopup);
+      closePopupButton.addEventListener("click", closePopup);
 
-// Close the popup if the user clicks outside of it
-window.addEventListener("click", function(event) {
-    if (event.target === reviewPopup) {
+      // Close the popup if the user clicks outside of it
+      window.addEventListener("click", function (event) {
+        if (event.target === reviewPopup) {
+          closePopup();
+        }
+      });
+
+      // Prevent the form from submitting (you can handle form submission as needed)
+      const reviewForm = document.getElementById("reviewForm");
+      reviewForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        // Handle form submission here, e.g., send the review data to a server
         closePopup();
-    }
-});
-
-// Prevent the form from submitting (you can handle form submission as needed)
-const reviewForm = document.getElementById("reviewForm");
-reviewForm.addEventListener("submit", function(event) {
-    event.preventDefault();
-    // Handle form submission here, e.g., send the review data to a server
-    closePopup();
-});
-
+      });
     </script>
-
 
     <script>
       var map = L.map("map");
