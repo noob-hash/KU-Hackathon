@@ -17,15 +17,33 @@
       crossorigin=""
     ></script>
     <style>
-      /* Updated map size and border styling */
+    
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
 
-      .container {
-        display: flex;
-      }
+      /* Updated map size and border styling */
+    *{
+            font-family: "Poppins", sans-serif;
+        }
+        .button{
+            display: inline-block;
+            background-color: var(--first-color);
+            color: #FFF;
+            padding: .75rem 1rem;
+            border-radius: .5rem;
+            transition: .3s;
+        }
+
+        .button:hover{
+            background-color: var(--first-color-alt);
+        }
+
+        .container {
+            display: flex;
+        }
 
       #map {
         flex: 4;
-        height: 600px; /* Adjust the height as desired */
+        /* height: 600px; Adjust the height as desired */
         border: 2px solid #ccc;
         border-radius: 5px;
         /* margin-right: 320px; Width of the panel in desktop view */
@@ -33,10 +51,11 @@
 
       /* Styling for the sliding panel */
       .panel {
-        flex: 2;
+        width: 250px;
+        height: 100svh;
+        overflow-y: scroll;
         top: 0;
-        right: 0; /* Fixed to the right in desktop view */
-        /* width: 400px; Width of the panel in desktop view */
+        right: 0;
         height: 100%;
         background-color: #fff;
         overflow-y: auto;
@@ -63,6 +82,10 @@
         flex-direction: column;
         align-items: center;
       }
+      .buttons{
+        display: flex;
+        flex-direction: row;
+      }
 
       #searchInput {
         padding: 10px;
@@ -74,18 +97,38 @@
       }
 
       #searchButton {
-        padding: 10px 20px;
+        width: 30px;
+        padding: 5px 7px;
         font-size: 16px;
         background-color: #f57c51;
         color: white;
         border: none;
         border-radius: 5px;
         cursor: pointer;
-        width: 50%; /* Set the button width to match the input */
+        width: 50%; 
+        display: inline;
+        margin: 0 10px;
       }
 
       #searchButton:hover {
         background-color: #eb8e6d;
+      }
+
+      #clearButton {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #f11f03;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 50%; 
+        display: inline;
+        margin: 0 10px;
+      }
+
+      #clearButton:hover {
+        background-color: #ad0c00;
       }
 
       h1 {
@@ -101,24 +144,20 @@
         border-radius: 5px;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
         padding: 10px;
-        max-height: 400px; /* Adjusted height */
-        overflow-y: auto; /* Enable vertical scrolling */
+        /* min-height: 200px; Adjusted height */
+        /* overflow-y: auto; Enable vertical scrolling */
       }
 
       /* Style each nearby place item */
       .nearby-place {
-        margin: 5px 0;
-        padding: 10px;
-        border-bottom: 1px solid #ddd;
         display: flex;
-        flex-direction: row; /* Arrange elements horizontally */
-        align-items: center;
+        flex-direction: column; 
       }
 
       /* Image style */
       .place-image {
-        max-width: 60px; /* Adjusted size */
-        margin-right: 10px;
+        max-width: 180px; /* Adjusted size */
+        background-color: red;
       }
 
       /* Place details style */
@@ -164,7 +203,6 @@
             min-height: 100vh;
             z-index: -1;
         }
-
         .panel {
             min-height: 100vh;
             position: absolute;
@@ -177,7 +215,7 @@
     </style>
   </head>
   <body>
-    <h1>Map of available parking</h1>
+    <!-- <h1>Map of available parking</h1> -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/leaflet-routing-machine/dist/leaflet-routing-machine.css"
@@ -196,31 +234,62 @@
           <!-- Place details will be populated here -->
           <div class="search-container">
             <input type="text" id="searchInput" placeholder="Enter location" />
-            <button id="searchButton">Search</button>
-            <button id="clearButton">Clear</button>
+            <div class="buttons">     
+                <button id="searchButton">Search</button>
+                <button id="clearButton">Clear</button>
+            </div>
           </div>
 
           <div id="nearbyPlacesList">
             <div class="nearby-place">
-              <img
-                src="assets/img/app1.png"
-                alt="Place Image"
-                class="place-image"
-              />
+                <div class="image">
+                    <img
+                      src="assets/img/search.png"
+                      alt="Place Image"
+                      class="place-image"
+                    />
+                </div>
+               
               <div class="place-details">
-                <span class="place-name">Baneshwor</span>
-                <span class="address">Chetrapati</span>
-                <span class="price"
-                  >Bike/Car: Rs.
-                  25/100 per
-                  hour</span
-                >
+                <span class="place-name">Civil Mall</span><br>
+                <span class="address">Baneshwor</span><br>
+                <span class="price">🚲: <b>Rs.25 /hr</b></span><br>
+                <span class="price">🚗: <b>Rs.100 /hr</b></span><br>
               </div>
-              <span class="icon icon-bike-car">🚲/🚗</span>
-              <button type="button">
-                <a href="{% url 'confirm_ticket' parkings.id %}">Confirm</a>
+
+              <!-- <span class="icon icon-bike-car">🚲/🚗</span> -->
+              <button type="button" class="button">
+                <a href="{% url 'confirm_ticket' parkings.id %}" class="searchButton">Confirm</a>
               </button>
             </div>
+
+            
+          </div>
+
+          <div id="nearbyPlacesList">
+            <div class="nearby-place">
+                <div class="image">
+                    <img
+                      src="assets/img/search.png"
+                      alt="Place Image"
+                      class="place-image"
+                    />
+                </div>
+               
+              <div class="place-details">
+                <span class="place-name">Civil Mall</span><br>
+                <span class="address">Baneshwor</span><br>
+                <span class="price">🚲: <b>Rs.25 /hr</b></span><br>
+                <span class="price">🚗: <b>Rs.100 /hr</b></span><br>
+              </div>
+
+              <!-- <span class="icon icon-bike-car">🚲/🚗</span> -->
+              <button type="button" class="button">
+                <a href="{% url 'confirm_ticket' parkings.id %}" class="searchButton">Confirm</a>
+              </button>
+            </div>
+
+            
           </div>
         </div>
       </div>
