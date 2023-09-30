@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Bookings</title>
+    <link rel="stylesheet" href="{% static 'customer/user_booking.css' %}">
+    <link rel="stylesheet" href="{% static 'customer/css/QR.css' %}">
+    <!--========== BOX ICONS ==========-->
+    <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'customer/css/styles.css' %}" />
+
+
+</head>
+
+<body>
+    <!--========== SCROLL TOP ==========-->
+    <a href="#" class="scrolltop" id="scroll-top">
+        <i class="bx bx-up-arrow-alt scrolltop__icon"></i>
+    </a>
+
+    {% include "Customer_nav.html" %}
+
+    <section class="home-section">
+        <div class="text">Bookings</div>
+    {% for ticket in tickets %}
+    <div class="ticketbox">
+
+        <div class="ticketContainer">
+            <div class="ticket">
+                <div class="ticketTitle">{{ticket.vehicle_type}} Parking <a style="display: flex; justify-content, font-size: 18;: space-between;" href="{% url 'view' ticket.id %}">View</a></div>
+                <hr>
+                <div class="ticketDetail">
+                    <div>Parking no:&ensp; 5 </div>
+                    <div>place:&nbsp; durbarmarg</div>
+                    <div>Arrival Time:&emsp; {{ticket.arrivalTime}}</div>
+                    <div>End Time:&emsp; {{ticket.departureTime}}</div>
+
+                </div>
+                <div class="ticketRip">
+                    <div class="circleLeft"></div>
+                    <div class="ripLine"></div>
+                    <div class="circleRight"></div>
+                </div>
+                <div class="ticketSubDetail">
+                    <div class="code">{{ticket.code}}</div>
+                    <div class="date"> {{ticket.booked_date}}</div>
+                </div>
+            </div>
+            <div class="ticketShadow"></div>
+        </div>
+
+
+    </div>
+    {% endfor %}
+    </div>
+</section>
+
+
+</body>
+
+</html>

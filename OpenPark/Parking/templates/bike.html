@@ -1,0 +1,11 @@
+{%load static%}
+
+{%if user.is_staff%}
+    {% include "owner_nav.html" %}
+{%else%}
+    {% include "Customer_nav.html" %}
+{%endif%}
+
+<section class="home-section">
+    <div class="text">Bikes</div>
+</section>
