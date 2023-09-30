@@ -191,7 +191,7 @@ def location_search(request):
         location2 = geolocator.geocode(location)
         lat = location2.latitude
         log = location2.longitude
-        
+        print(location2)
         if location2:
             user_latitude = location2.latitude
             user_longitude = location2.longitude
@@ -220,6 +220,7 @@ def location_search(request):
                 'end_time': end_time,
                 'vehicle_type': vehicle_type,
             }
+            print("A")
             return render(request, 'map.html', {'parkings': parkings_within_radius, 'lat': lat, 'log': log,"info":info})
 
     return render(request, 'Customer.html')
