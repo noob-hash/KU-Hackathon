@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parking Ticket</title>
+    <style>
+        /* Option 2: Import via CSS */
+        @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
+        *{
+            font-family: 'Poppins', sans-serif;
+        }
+        .tickets{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+        .ticket{
+            width: 360px;
+            height: 500px;
+            margin: 0 auto;
+            background-color: orange;
+            display: flex;
+            flex-direction: column;
+        }
+        .ticket-header{
+            background-color: red;
+            text-align: center;
+        }
+        .ticket-body{
+            display: flex;
+            text-align: center;
+            flex-direction: column;
+            background-color: green;
+        }
+        .ticket-image > img{
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .ticket-data{
+            text-align: left;
+            padding: 10px;
+        }
+        .bi{
+            color: aliceblue;
+        }
+        .data {
+            font-size: 14px;
+
+
+        }
+    </style>
+</head>
+<body>
+    <main class="tickets">
+        <div class="ticket">
+
+            <div class="ticket-header">
+                <h1>Ticket 1</h1>
+            </div>
+
+            <div class="ticket-body">
+                <div class="ticket-image">
+                    <img src="./assets/img/about.png" alt="">
+                </div>
+
+                <div class="ticket-data">
+                    <span class="data"><i class="bi bi-geo-alt-fill"></i> <span>Bhaktapur</span></span><br>
+                    <span class="data"><i class="bi bi-p-square-fill"></i></i> <span>BG Mall</span></span><br>
+                    <span class="data"><i class="bi bi-sign-intersection-fill"></i> <span>Plot 5</span></span><br>
+                    <span class="data"><i class="bi bi-calendar-fill"></i> <span>22nd Sep 2023</span></span><br>
+                    <span class="data"><i class="bi bi-clock-fill"></i> <span>09:00 AM</span></span><br>
+                    <span class="data"><i class="bi bi-stopwatch-fill"></i> <span>09:00 PM</span></span><br>
+                    <span class="data"><i class="bi bi-geo-alt-fill"></i> <span>Bhaktapur</span></span><br>
+                    <span class="data"><i class="bi bi-geo-alt-fill"></i> <span>Bhaktapur</span></span><br>
+                    <span class="data"><i class="bi bi-chat-square-heart-fill"></i> Feedback</span><br>
+                </div>
+            </div>
+        </div>
+
+        
+    </main>
+    
+</body>
+</html>
