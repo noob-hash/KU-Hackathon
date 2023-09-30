@@ -17,21 +17,26 @@
         }
         .ticket{
             width: 360px;
-            height: 500px;
+            height: auto;
             margin: 0 auto;
-            background-color: orange;
+            background-color: rgb(245, 215, 186);
             display: flex;
             flex-direction: column;
+            border-radius: 20px;
         }
         .ticket-header{
-            background-color: red;
             text-align: center;
+            font-size: 18px;
+            font-weight: 400;
+            color: #e05119;
+            padding: 5px;
         }
         .ticket-body{
             display: flex;
             text-align: center;
             flex-direction: column;
-            background-color: green;
+            padding: 20px;
+            border-radius: 20px;
         }
         .ticket-image > img{
             width: 100%;
@@ -43,12 +48,13 @@
             padding: 10px;
         }
         .bi{
-            color: aliceblue;
+            color: #e05119;
         }
         .data {
             font-size: 14px;
-
-
+        }
+        .data > span{
+           align-self: center;
         }
     </style>
 </head>
@@ -57,7 +63,7 @@
         <div class="ticket">
 
             <div class="ticket-header">
-                <h1>Ticket 1</h1>
+                <p>Ticket 1</p>
             </div>
 
             <div class="ticket-body">
@@ -66,15 +72,13 @@
                 </div>
 
                 <div class="ticket-data">
-                    <span class="data"><i class="bi bi-geo-alt-fill"></i> <span>Bhaktapur</span></span><br>
-                    <span class="data"><i class="bi bi-p-square-fill"></i></i> <span>BG Mall</span></span><br>
-                    <span class="data"><i class="bi bi-sign-intersection-fill"></i> <span>Plot 5</span></span><br>
-                    <span class="data"><i class="bi bi-calendar-fill"></i> <span>22nd Sep 2023</span></span><br>
-                    <span class="data"><i class="bi bi-clock-fill"></i> <span>09:00 AM</span></span><br>
-                    <span class="data"><i class="bi bi-stopwatch-fill"></i> <span>09:00 PM</span></span><br>
-                    <span class="data"><i class="bi bi-geo-alt-fill"></i> <span>Bhaktapur</span></span><br>
-                    <span class="data"><i class="bi bi-geo-alt-fill"></i> <span>Bhaktapur</span></span><br>
-                    <span class="data"><i class="bi bi-chat-square-heart-fill"></i> Feedback</span><br>
+                    <p>BG Mall - Plot 5 - 1357895</p>
+                    <span class="data"><i class="bi bi-geo-alt-fill"></i> <span> Kathmandu</span></span><br>
+                    <span class="data"><i class="bi bi-calendar-fill"></i> <span>  Sep 2023</span></span><br>
+                    <span class="data"><i class="bi bi-clock-fill"></i> <span> 09:00 AM</span></span><br>
+                    <span class="data"><i class="bi bi-stopwatch-fill"></i> <span> 21:00 PM</span></span><br>
+                    <span class="data"><i class="bi bi-question-diamond-fill"></i> <span> Parking</span></span><br>
+                    <span class="data"><i class="bi bi-chat-dots-fill"></i> <span> The feedback I gave!</span></span><br>
                 </div>
             </div>
         </div>
