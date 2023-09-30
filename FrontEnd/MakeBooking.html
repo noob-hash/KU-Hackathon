@@ -238,16 +238,12 @@
               <form action="" method="POST">
                 {% csrf_token %}
                
-                <label for="dtime">departureTime</label>
                 <input type="hidden" id="dtime" name="departureTime" value="{{info.start_time}}" placeholder="departureTime">
-                <label for="atime">Arrival Time</label>
                 <input type="hidden" id="dtime" name="arrivalTime" value="{{info.end_time}}" placeholder="ArrivalTime">
-                <label for="country">Select Vehicle Category</label>
                 <select id="country" name="vehicle_type" value="{{info.vehicle_type}}">
                   <option value="Car">Car</option>
                   <option value="Bike">Bike</option>
                 </select>
-                <label for="location">Location</label>
                 <input type="hidden" id="location" name="location" value="{{info.location}}" placeholder="location">
                 <input type="hidden" name="parking_code" value="{{ticket.parking_code}}">
                 <input type="hidden" name="car_charge" value="{{ticket.car_charge}}">
