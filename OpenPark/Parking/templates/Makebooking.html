@@ -46,7 +46,7 @@
 
       /* Styling for the sliding panel */
       .panel {
-        flex: 2;
+        width:250px;
         top: 0;
         right: 0; /* Fixed to the right in desktop view */
         /* width: 400px; Width of the panel in desktop view */
@@ -186,7 +186,7 @@
     </style>
   </head>
   <body>
-    <h1>Dashboard</h1>
+    <h1>Serch destination parking</h1>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/leaflet-routing-machine/dist/leaflet-routing-machine.css"
@@ -198,70 +198,54 @@
       <!-- Map container -->
       <div id="map"></div>
 
-      <!-- Sliding panel with search bar and default nearby places list inside -->
       <div class="panel" id="infoPanel">
         <div class="panel-header">Place Details</div>
         <div class="panel-content" id="infoContent">
           <!-- Place details will be populated here -->
-            <form action="" method="POST">
-                {% csrf_token %}
-              <div class="input-wrapper">
-              <label for="loaction">Enter Location</label>
-              <input
-                type="text"
-                id="searchInput"
-                name="location"
-                placeholder="Enter location"
-              />
-              </div>
-              
+          
 
-              <div class="flex">
-                <div class="input-wrapper">
-                    <label for="loaction">Arrival Time</label>
-                    <input
-                  type="time"
-                  id="searchInput"
-                  name="start_time"
-                  placeholder="Enter Arrival time"
-                />
-                    </div>
-                    
-                    <div class="input-wrapper">
-                        <label for="loaction">Departure Time</label>
-                        <input
-                  type="time"
-                  id="searchInput"
-                  name="end_time"
-                  placeholder="Enter Departure time"
-                />
-                        </div>
-                
-              </div>
-
-              <div class="input-wrapper">
-                <select name="vehicle" id="" name="vehicle_type">
-                  <option value="Bike">Bike</option>
-                  <option value="Cras">Cars</option>
-                </select>
+          <div id="nearbyPlacesList">
+            {%for parking in parkings%}
+            <div class="nearby-place">
+                <div class="image">
+                    <img
+                      src="{% static 'Customer/img/search.png' %}"
+                      alt="Place Image"
+                      class="place-image"
+                    />
                 </div>
-            
-
-              <div class="flex">
-                <button type="submit" id="searchButton">Search</button>
-                <button id="clearButton">Clear</button>
+               
+              <div class="place-details">
+                <span class="place-name">{{parking.name}}</span><br>
+                <span class="address">{{parking.location}}</span><br>
+                <span class="price">🚲: <b>Rs. {{parking.bike_charge}}/hr</b></span><br>
+                <span class="price">🚗: <b>Rs. {{parking.car_charge}}/hr</b></span><br>
               </div>
-            </form>
+
+              <!-- <span class="icon icon-bike-car">🚲/🚗</span> -->
+              <button type="button" class="button">
+                <a href="confirm_ticket/{{parkings.id}} %}" class="searchButton">Confirm</a>
+              </button>
+            </div>
+            {%endfor%}
+          </div>
         </div>
       </div>
     </div>
 
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
     <script>
-      var map = L.map("map");
+        var map = L.map("map");
       var userMarker;
       var routingControl;
 
-      map.setView([51.505, -0.09], 13);
+      map.setView([{{lat}}, {{log}}], 13);
 
       L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 19,
@@ -332,5 +316,5 @@
           var parkingLng = -0.1; // Replace with the parking location's longitude
           calculateRouteToParking(parkingLat, parkingLng);
         });
-    </script>
+        </script>
 </section>

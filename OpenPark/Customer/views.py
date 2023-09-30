@@ -41,7 +41,7 @@ def login(request):
             if user.is_staff:
                 return redirect('dashboard')
             else:
-                return redirect('customer_dashboard')
+                return redirect('dashboard_customer')
 
         else:
             # Return an error response or render the login page with an error message
@@ -80,10 +80,6 @@ def customer_registration(request):
 
     return render(request, 'Customer_registration.html', {'error_message': error_message})
 
-
-
-def choose_location(request):
-    return render(request, 'Customer/choose_location.html')
 
 def my_tickets(request):
     user = request.user.username
@@ -181,6 +177,10 @@ def register_owner_account(request):
 
     return render(request, 'Owner_registration.html', {'error_message': error_message})
 
+def confirm_ticket(request, pk):
+    ticket = Parking.objects.get(id=pk)
+    return render(request, 'confirm_ticket.html', {'ticket': ticket})
+
 def location_search(request):
     if request.method == 'POST':
         location = request.POST['location']
@@ -191,7 +191,6 @@ def location_search(request):
         location2 = geolocator.geocode(location)
         lat = location2.latitude
         log = location2.longitude
-        print(location2)
         if location2:
             user_latitude = location2.latitude
             user_longitude = location2.longitude
@@ -204,7 +203,7 @@ def location_search(request):
                 parking_latitude = parking.latitude
                 parking_longitude = parking.longitude
                 distance_km = geodesic((user_latitude, user_longitude), (parking_latitude, parking_longitude)).kilometers
-
+                print(parking.name,distance_km)
                 if distance_km <= search_radius_km:
                     try:
                         kyc = KYC.objects.get(parking_code=parking.code)
@@ -219,9 +218,12 @@ def location_search(request):
                 'start_time': start_time,
                 'end_time': end_time,
                 'vehicle_type': vehicle_type,
+                'location':location,
             }
-            print("A")
-            return render(request, 'map.html', {'parkings': parkings_within_radius, 'lat': lat, 'log': log,"info":info})
+            print(len(parkings_within_radius))
+            for parking in parkings_within_radius:
+                print(parking.name,"A")
+            return render(request, 'Makebooking.html', {'parkings': parkings_within_radius, 'lat': lat, 'log': log,"info":info})
 
     return render(request, 'Customer.html')
    

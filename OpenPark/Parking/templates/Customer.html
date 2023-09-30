@@ -203,7 +203,7 @@
         <div class="panel-header">Place Details</div>
         <div class="panel-content" id="infoContent">
           <!-- Place details will be populated here -->
-            <form action="" method="POST">
+            <form action="../choose_location" method="POST">
                 {% csrf_token %}
               <div class="input-wrapper">
               <label for="loaction">Enter Location</label>
@@ -240,7 +240,7 @@
               </div>
 
               <div class="input-wrapper">
-                <select name="vehicle" id="" name="vehicle_type">
+                <select name="vehicle_type" id="">
                   <option value="Bike">Bike</option>
                   <option value="Cras">Cars</option>
                 </select>
