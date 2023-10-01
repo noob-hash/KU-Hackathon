@@ -7,7 +7,7 @@
       @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap");
 
       :root {
-        --primary: #6b59d3;
+        --primary: #f57c51;
         --secondary: #bfc0c0;
         --white: #fff;
         --text-clr: #5b6475;
@@ -22,7 +22,7 @@
         box-sizing: border-box;
         list-style: none;
         outline: none;
-        font-family: "Open Sans", sans-serif;
+        font-family: "Poppins", sans-serif;
       }
 
       body {
@@ -254,10 +254,15 @@
       type="module"
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
     ></script>
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+
   </head>
   <body>
     <div class="wrapper">
+      
+      <a href="{%url 'user_index'%}" style="text-decoration: none; display: flex; gap: 4px; color: #323232;"><box-icon name='arrow-back'></box-icon>Back</a>
       <div class="header">
+        
         <ul>
           <li class="active form_1_progessbar">
             <div>
@@ -277,10 +282,10 @@
         </ul>
       </div>
       <div class="form_wrap">
-
+        
         <form action="" method="POST" id ="formSubmit">
             {% csrf_token %}
-<div class="form_1 data_info">
+      <div class="form_1 data_info">
           <h2>Personal Info</h2>
             <div class="form_container">
               <div class="input_wrap">
