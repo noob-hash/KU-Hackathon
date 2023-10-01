@@ -13,6 +13,7 @@ from django.http import HttpResponse
 from django.utils import timezone
 from django.core.files.base import ContentFile
 from Parking.models import Parking
+from .models import ParkingReview
 
 
 def generate_random_code():
@@ -113,7 +114,7 @@ def register_owner_account(request):
             # Authenticate and log in the user
 
             code = str(uuid.uuid4().hex[:8])  
-            owner = request.user 
+            owner = user 
             car_slot = int(request.POST.get('car_slot', 10))
             bike_slot = int(request.POST.get('bike_slot', 10))
             car_charge = int(request.POST.get('car_charge', 100))
@@ -147,7 +148,7 @@ def register_owner_account(request):
             parking.save()
 
             parking_code = Parking.objects.filter(
-            owner=request.user).values_list('code', flat=True)
+            owner=user).values_list('code', flat=True)
             citizenship_id = request.POST.get('citizenship_id')
             name = request.user
             image = request.FILES.get('image')
@@ -171,7 +172,7 @@ def register_owner_account(request):
             user = authenticate(username=username, password=password)
             auth_login(request, user)
             messages.success(request, 'Registration successfully.')
-            return redirect('owner_dashboard')  # Redirect to owner dashboard
+            return redirect('dashboard')  # Redirect to owner dashboard
         
     else:
         error_message = ""
@@ -220,7 +221,6 @@ def location_search(request,pk=None):
             print(len(parkings_within_radius))
             ticket = None
             if pk:
-                print("A")
                 ticket = Parking.objects.get(id=pk)
                 return redirect('book_ticket')
             return render(request, 'Makebooking.html', {'parkings': parkings_within_radius, 'lat': lat, 'log': log,"info":info,"tickets":ticket})
@@ -231,7 +231,6 @@ def book_ticket(request):
     if request.method == 'POST':
         try:
             # parking = Parking.objects.get(code=parking_code)
-            print("AS")
             vehicle_type = request.POST.get('vehicle_type') 
             parking_code = request.POST.get('parking_code')
             arrivalTime = request.POST.get('start_time')
@@ -289,3 +288,40 @@ def qr_generator(request):
     except Exception as e:
         return redirect('my_tickets')
    
+def single_ticket(request, pk):
+    user = request.user.username
+    tickets = None
+    if user:
+        tickets = Ticket.objects.get(id=pk)
+        return render(request, 'view.html', {'ticket': tickets})
+    else:
+        return redirect('login')
+    
+# review
+def review(request,pk):
+    try:
+        reviews = ParkingReview.objects.filter(parking_code = pk)
+        return render(request, 'review.html', {"reviews": reviews})
+    except:
+        message = "No such parking space exist"
+        return render(request, 'review.html', {"error": message})
+    
+def addReview(request,pk):
+    if request.method == "POST":
+        user = request.user.username
+        parking_code = pk
+        rating = request.POST.get('rating') 
+        comment = request.POST.get('comment') 
+
+        review = ParkingReview.objects.create(
+            parking_code = parking_code,
+            user_code = user,
+            rating = rating,
+            comment = comment
+        )
+
+        review.save()
+        return redirect(request, 'review/{parking_code}')
+    
+def feed(request):
+    return render(request, 'VideoFeed.html')

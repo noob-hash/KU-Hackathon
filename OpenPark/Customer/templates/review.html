@@ -1,0 +1,22 @@
+{% load static %}
+{% if reviews%}
+{%for review in reviews%}
+<div class="review">
+    <div class="review-container">
+      <div class="pic">
+          <box-icon name='user'></box-icon>
+      </div>
+      <div class="user-details">
+        <div class="name">Sadhana Sapkota</div>
+        <div class="comment">Waau chal chal teti ramoro ni thye na </div>
+      </div>
+    </div>
+  </div>
+park:{{review.parking_code}}
+user:{{review.user_code}}
+rating:{{review.rating}}
+comment:{{review.comment}}
+{% endfor %}
+{%else%}
+error:{{error}}
+{%endif%}

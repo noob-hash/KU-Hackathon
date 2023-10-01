@@ -145,7 +145,7 @@
       /* Style each nearby place item */
       .nearby-place {
         margin: 5px 0;
-        padding: 10px;
+        padding: 6px;
         border-bottom: 1px solid #ddd;
         display: flex;
         flex-direction: column; /* Arrange elements horizontally */
@@ -260,6 +260,8 @@
                 <button type="submit" class="button">Select
                 </button>
                 {%endif%}
+                <button type="button" class="button"><a style="color:white; text-decoration:none;" href="review/{{parking.code}}">See Review</a>
+                </button>
               </form>
               <!-- <span class="icon icon-bike-car">🚲/🚗</span> -->
             </div>

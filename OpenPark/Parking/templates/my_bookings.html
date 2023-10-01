@@ -19,6 +19,60 @@
 </head>
 
 <body>
+  <style>
+    /* Option 2: Import via CSS */
+    @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
+    *{
+        font-family: 'Poppins', sans-serif;
+    }
+    .tickets{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .ticket{
+        width: 360px;
+        height: auto;
+        margin: 0 auto;
+        margin-bottom: 20px;
+        background-color: rgb(245, 215, 186);
+        display: flex;
+        flex-direction: column;
+        border-radius: 20px;
+    }
+    .ticket-header{
+        text-align: center;
+        font-size: 18px;
+        font-weight: 400;
+        color: #e05119;
+        padding: 5px;
+    }
+    .ticket-body{
+        display: flex;
+        text-align: center;
+        flex-direction: column;
+        padding: 20px;
+        border-radius: 20px;
+    }
+    .ticket-image > img{
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+    }
+    .ticket-data{
+        text-align: left;
+        padding: 10px;
+    }
+    .bi{
+        color: #e05119;
+    }
+    .data {
+        font-size: 14px;
+    }
+    .data > span{
+       align-self: center;
+    }
+</style>
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
         *{
@@ -267,39 +321,44 @@
         <i class="bx bx-up-arrow-alt scrolltop__icon"></i>
     </a>
 
-    {% include "Customer_nav.html" %}
+    {%if user.is_staff%}
+      {% include "owner_nav.html" %}
+    {%else%}
+      {% include "Customer_nav.html" %}
+    {%endif%}
 
     <section class="home-section">
         <div class="text">Bookings</div>
-    {% for ticket in tickets %}
-    <div class="ticketbox">
+        <main class="tickets">
+          {% for ticket in tickets %}
+   
 
-        <div class="ticketContainer">
-            <div class="ticket">
-                <div class="ticketTitle">{{ticket.vehicle_type}} Parking <a style="display: flex; justify-content, font-size: 18;: space-between;" href="">View</a></div>{%comment%}{% url 'view' ticket.id %}{%endcomment%}
-                <hr>
-                <div class="ticketDetail">
-                    <div>Parking no:&ensp; 5 </div>
-                    <div>place:&nbsp; durbarmarg</div>
-                    <div>Arrival Time:&emsp; {{ticket.arrivalTime}}</div>
-                    <div>End Time:&emsp; {{ticket.departureTime}}</div>
-                </div>
-                <div class="ticketRip">
-                    <div class="circleLeft"></div>
-                    <div class="ripLine"></div>
-                    <div class="circleRight"></div>
-                </div>
-                <div class="ticketSubDetail">
-                    <div class="code">{{ticket.code}}</div>
-                    <div class="date"> {{ticket.booked_date}}</div>
-                </div>
-            </div>
-            <div class="ticketShadow"></div>
-        </div>
+    <div class="ticket">
+  
+      <div class="ticket-header">
+          <p>Ticket {{ticket.code}}</p>
+      </div>
 
+      <div class="ticket-body">
+          <div class="ticket-image">
+              <img src="{% static 'Customer/img/about.png'%}" alt="">
+          </div>
 
-    </div>
+          <div class="ticket-data">
+              <p>BG Mall - Plot 5 - 1357895</p>
+              <span class="data"><i class="bi bi-geo-alt-fill"></i> <span> Kathmandu</span></span><br>
+              <span class="data"><i class="bi bi-calendar-fill"></i> <span>  {{ticket.booked_date}}</span></span><br>
+              <span class="data"><i class="bi bi-clock-fill"></i> <span> {{ticket.arrivalTime}}</span></span><br>
+              <span class="data"><i class="bi bi-stopwatch-fill"></i> <span> {{ticket.departureTime}}</span></span><br>
+              <span class="data"><i class="bi bi-question-diamond-fill"></i> <span>{{ticket.vehicle_type}} Parking</span></span><br>
+              <span class="data"><i class="bi bi-chat-dots-fill"></i> <span> The feedback I gave!</span></span><br>
+          </div>
+      </div>
+  </div>
     {% endfor %}
+  
+          
+      </main>
     </div>
 </section>
 

@@ -11,5 +11,9 @@ urlpatterns = [
     path('logout',views.logout_user, name="logout"),
     path('choose_location/<int:pk>',views.location_search, name="choose_location"),
     path('my/qr', views.qr_generator, name="qr_generator"),  
-     path('book_ticket', views.book_ticket, name="book_ticket"),
+    path('book_ticket', views.book_ticket, name="book_ticket"),
+    path('ticket/<int:pk>', views.single_ticket, name="view"),
+    path('review/<str:pk>', views.review, name="review"),
+    path('addreview/<str:pk>', views.addReview, name="addreview"),
+    path('owner/feed', views.feed, name="feed"),
 ]

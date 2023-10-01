@@ -6,6 +6,360 @@
     {% include "Customer_nav.html" %}
 {%endif%}
 
-<section class="home-section">
-    <div class="text">Bikes</div>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bike Bookings</title>
+    <link rel="stylesheet" href="{% static 'Customer/user_booking.css' %}">
+    <link rel="stylesheet" href="{% static 'Customer/css/QR.css' %}">
+    <link rel="stylesheet" href="{% static 'Customer/css/.css' %}">
+
+    <!--========== BOX ICONS ==========-->
+    <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'Customer/css/styles.css' %}" />
+
+
+</head>
+
+<body>
+  <style>
+    /* Option 2: Import via CSS */
+    @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
+    *{
+        font-family: 'Poppins', sans-serif;
+    }
+    .tickets{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .ticket{
+        width: 360px;
+        height: auto;
+        margin: 0 auto;
+        margin-bottom: 20px;
+        background-color: rgb(245, 215, 186);
+        display: flex;
+        flex-direction: column;
+        border-radius: 20px;
+    }
+    .ticket-header{
+        text-align: center;
+        font-size: 18px;
+        font-weight: 400;
+        color: #e05119;
+        padding: 5px;
+    }
+    .ticket-body{
+        display: flex;
+        text-align: center;
+        flex-direction: column;
+        padding: 20px;
+        border-radius: 20px;
+    }
+    .ticket-image > img{
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+    }
+    .ticket-data{
+        text-align: left;
+        padding: 10px;
+    }
+    .bi{
+        color: #e05119;
+    }
+    .data {
+        font-size: 14px;
+    }
+    .data > span{
+       align-self: center;
+    }
+</style>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+        *{
+                font-family: "Poppins", sans-serif;
+            }
+        .button{
+            transition: .3s;
+            display: inline-block;
+            background-color: var(--first-color);
+            color: #FFF;
+            padding: .75rem 1rem;
+            border-radius: .5rem;
+        }
+    
+        .button:hover{
+            background-color: var(--first-color-alt);
+        }
+
+        .container {
+            display: flex;
+        }
+
+        #map {
+            flex: 4;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+        }
+    
+        .panel {
+            width: 250px;
+            height: 100svh;
+            overflow-y: scroll;
+            top: 0;
+            right: 0;
+            height: 100%;
+            background-color: #fff;
+            overflow-y: auto;
+            box-shadow: -1px 0px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .panel-header {
+            text-align: center;
+            padding: 10px;
+            background-color: #f57c51;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .search-container {
+            margin-top: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        .buttons{
+            display: flex;
+            flex-direction: row;
+        }
+        
+        #searchInput {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            width: 80%;
+            margin-bottom: 10px; /* Add some margin below the input */
+          }
+    
+        #searchButton {
+            width: 30px;
+            padding: 5px 7px;
+            font-size: 16px;
+            background-color: #f57c51;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 50%;
+            display: inline;
+            margin: 0 10px;
+          }
+    
+          #searchButton:hover {
+            background-color: #eb8e6d;
+          }
+    
+          #clearButton {
+            padding: 10px 20px; 
+            font-size: 16px;
+            background-color: #f11f03;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 50%;
+            display: inline;
+            margin: 0 10px;
+          }
+
+          #clearButton:hover {
+            background-color: #ad0c00;
+          }
+    
+     
+    
+          h1 {
+            font-size: 24px;
+            color: #f57c51;
+            margin-top: 20px;
+          }
+    
+          #nearbyPlacesList {
+            max-height: 400px;
+            min-height: 250px; 
+            overflow: scroll;
+          }
+    
+     
+          .image {
+            height: 150px;
+            width: 150px;
+          }
+          /* Style each nearby place item */
+    
+          .nearby-place {
+    
+            display: flex;
+    
+            flex-direction: column;
+    
+          }
+    
+     
+    
+          /* Image style */
+    
+          .place-image {
+    
+            max-width: 180px; /* Adjusted size */
+    
+            background-color: red;
+    
+          }
+    
+     
+    
+          /* Place details style */
+    
+          .place-details {
+    
+            flex-grow: 1;
+    
+          }
+    
+     
+    
+          /* Confirmation icon style */
+    
+          .confirmation-icon {
+    
+            font-size: 24px;
+    
+            margin-left: 5px; /* Adjusted spacing */
+    
+          }
+    
+     
+    
+          /* Styling for address and price */
+    
+          .address {
+    
+            font-size: 14px;
+    
+            margin-top: 5px;
+    
+          }
+    
+     
+    
+          .price {
+    
+            font-size: 14px;
+    
+            color: #f57c51;
+    
+            margin-top: 5px;
+    
+          }
+    
+     
+    
+          /* Show the list when needed */
+    
+          #nearbyPlacesList.visible {
+    
+            display: block;
+    
+          }
+    
+     
+    
+          /* for responsive */
+    
+          @media only screen and (max-width: 400px) {
+    
+            body {
+    
+              background-color: lightblue;
+    
+            }
+    
+     
+    
+            .container {
+    
+                flex-direction: row;
+    
+            }
+    
+     
+    
+            #map {
+    
+                flex: 1;
+    
+                min-height: 100vh;
+    
+                z-index: -1;
+            }
+    
+            .panel {
+                min-height: 100vh;
+                position: absolute;
+                left: 50;
+                top:50;
+                transform: translate(-50, -50);
+            }
+          }
+    
+        </style>
+    <!--========== SCROLL TOP ==========-->
+    <a href="#" class="scrolltop" id="scroll-top">
+        <i class="bx bx-up-arrow-alt scrolltop__icon"></i>
+    </a>
+
+    <section class="home-section">
+        <div class="text">Bike Bookings</div>
+        <main class="tickets">
+          {% for ticket in tickets %}
+          <div class="ticket">
+          
+              <div class="ticket-header">
+                  <p>Ticket {{ticket.code}}</p>
+              </div>
+
+              <div class="ticket-body">
+                  <div class="ticket-image">
+                      <img src="{% static 'Customer/img/about.png'%}" alt="">
+                  </div>
+
+                  <div class="ticket-data">
+                      <p>BG Mall - Plot 5 - 1357895</p>
+                      <span class="data"><i class="bi bi-geo-alt-fill"></i> <span> Kathmandu</span></span><br>
+                      <span class="data"><i class="bi bi-calendar-fill"></i> <span>  {{ticket.booked_date}}</span></span><br>
+                      <span class="data"><i class="bi bi-clock-fill"></i> <span> {{ticket.arrivalTime}}</span></span><br>
+                      <span class="data"><i class="bi bi-stopwatch-fill"></i> <span> {{ticket.departureTime}}</span></span><br>
+                      <span class="data"><i class="bi bi-question-diamond-fill"></i> <span>{{ticket.vehicle_type}} Parking</span></span><br>
+                      <span class="data"><i class="bi bi-chat-dots-fill"></i> <span> The feedback I gave!</span></span><br>
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
+        </main>
+    </div>
 </section>
+
+
+</body>
+
+</html>

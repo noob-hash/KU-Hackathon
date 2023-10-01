@@ -7,38 +7,39 @@ from django.db.models.functions import Trunc
 
 # admin site
 def my_bookings(request):
+    parking_tickets = None
     if request.user.is_authenticated and request.user.is_staff:
         # Get all parking codes owned by the logged-in staff member
         owner_parking_codes = Parking.objects.filter(
             owner=request.user).values_list('code', flat=True)
-
+        int_codes = [code for code in owner_parking_codes][0]
         # Find all tickets that match the parking_code in the owner's parking codes
         parking_tickets = Ticket.objects.filter(
-            parking_code__in=owner_parking_codes)
+            parking_code=int_codes)
     else:
         return redirect('login')
 
-    return render(request, 'Parking/Owner.html', {'parking_tickets': parking_tickets})
+    return render(request, 'Parking/Owner.html', {'tickets': parking_tickets})
 
 def owner_dashboard(request):
     if request.user.is_staff:
         # Get the parking codes owned by the logged-in staff member
         owner_parking_codes = Parking.objects.filter(
             owner=request.user).values_list('code', flat=True)
-        
+        int_codes = [code for code in owner_parking_codes][0]
         # Total bikes
         total_bikes = Ticket.objects.filter(
-            parking_code__in=owner_parking_codes, vehicle_type='Bike', status="Booked").count()
+            parking_code=int_codes, vehicle_type='Bike', status="Booked").count()
         total_cars = Ticket.objects.filter(
-            parking_code__in=owner_parking_codes, vehicle_type='Car', status="Booked").count()
+            parking_code=int_codes, vehicle_type='Car', status="Booked").count()
         
         # Get the total car slots and bike slots from Parking
         total_car_slots = Parking.objects.aggregate(total_car_slots=Sum('car_slot'))['total_car_slots'] or 0
         total_bike_slots = Parking.objects.aggregate(total_bike_slots=Sum('bike_slot'))['total_bike_slots'] or 0
         
         # Calculate the total booked car slots and bike slots
-        total_booked_cars = Ticket.objects.filter(parking_code__in=Parking.objects.values('code'), vehicle_type='Car', status='Booked').count()
-        total_booked_bikes = Ticket.objects.filter(parking_code__in=Parking.objects.values('code'), vehicle_type='Bike', status='Booked').count()
+        total_booked_cars = Ticket.objects.filter(parking_code=int_codes, vehicle_type='Car', status='Booked').count()
+        total_booked_bikes = Ticket.objects.filter(parking_code=int_codes, vehicle_type='Bike', status='Booked').count()
         
         # Calculate the total available car slots and bike slots
         available_car_slots = total_car_slots - total_booked_cars
@@ -70,7 +71,7 @@ def owner_dashboard(request):
         while current_day <= end_date:
             daily_revenue = (
                 Ticket.objects
-                .filter(parking_code__in=owner_parking_codes)
+                .filter(parking_code=int_codes)
                 .annotate(booked_date_date=Trunc('booked_date', 'day', output_field=DateField()))
                 .filter(booked_date_date=current_day)
                 .aggregate(daily_total=Sum('amount'))['daily_total'] or 0
@@ -98,17 +99,16 @@ def customer_dashboard(request):
 
 
 def my_car_bookings(request):
+    parking_tickets = None
     if request.user.is_authenticated:
         if request.user.is_staff:
             # Get all parking codes owned by the logged-in staff member
             owner_parking_codes = Parking.objects.filter(
                 owner=request.user).values_list('code', flat=True)
-            print(owner_parking_codes)
-
+            int_codes = [code for code in owner_parking_codes][0]
             # Find all tickets that match the parking_code in the owner's parking codes
             parking_tickets = Ticket.objects.filter(
-                parking_code__in=owner_parking_codes, vehicle_type='Car')
-            print(parking_tickets)
+                parking_code=int_codes, vehicle_type='Car')
         else:
             user = request.user.username
             parking_tickets = None
@@ -116,22 +116,23 @@ def my_car_bookings(request):
                 parking_tickets = Ticket.objects.filter(username=user, vehicle_type='Car')
     else:
         return redirect('login')
-
-    return render(request, 'car.html', {'parking_tickets': parking_tickets})
+    print(parking_tickets)
+    return render(request, 'car.html', {'tickets': parking_tickets})
 
 
 # Bike Bookings
 def my_bike_bookings(request):
+    parking_tickets = None
     if request.user.is_authenticated:
         if request.user.is_staff:
             # Get all parking codes owned by the logged-in staff member
             owner_parking_codes = Parking.objects.filter(
                 owner=request.user).values_list('code', flat=True)
-            print(owner_parking_codes)
+            int_codes = [code for code in owner_parking_codes][0]
 
             # Find all tickets that match the parking_code in the owner's parking codes
             parking_tickets = Ticket.objects.filter(
-                parking_code__in=owner_parking_codes, vehicle_type='Bike')
+                parking_code=int_codes, vehicle_type='Bike')
             print(parking_tickets)
         else:
             user = request.user.username
@@ -141,29 +142,30 @@ def my_bike_bookings(request):
     else:
         return redirect('login')
 
-    return render(request, 'bike.html', {'parking_tickets': parking_tickets})
+    return render(request, 'bike.html', {'tickets': parking_tickets})
 
 
 # Active Bookings
 def my_active_bookings(request):
     if request.user.is_authenticated:
+        tickets = None
         if request.user.is_staff:
         # Get all parking codes owned by the logged-in staff member
             owner_parking_codes = Parking.objects.filter(
                 owner=request.user).values_list('code', flat=True)
-                
+            int_codes = [code for code in owner_parking_codes][0]
             # Find all tickets that match the parking_code in the owner's parking codes
-            parking_tickets = Ticket.objects.filter(
-                parking_code__in=owner_parking_codes, status='Booked')
-            return render(request, 'booking.html', {'parking_tickets': parking_tickets})
+            tickets = Ticket.objects.filter(
+                parking_code=int_codes, status='Reserved')
+            
+            # for parking_ticket in parking_tickets:
 
         else:
             # customer
             user = request.user.username
-            tickets = None
             if Ticket.objects.filter(username=user).exists():
                 tickets = Ticket.objects.filter(username=user)
-            return render(request, 'my_bookings.html', {'tickets': tickets})
+        return render(request, 'my_bookings.html', {'tickets': tickets})
     else:
         return redirect('login')
     
